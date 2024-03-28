@@ -11,6 +11,6 @@ namespace WWW_APP_PROJECT.Models
         [StringLength(100)] 
         public string DisciplineName { get; set; }
         public virtual ICollection<Tournament>? Tournaments { get; set; }
-        ///Chuj
+        
     }
 }
