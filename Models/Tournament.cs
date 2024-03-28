@@ -1,20 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WWW_APP_PROJECT.Models.Enum;
 
 namespace WWW_APP_PROJECT.Models
 {
-    public enum TournamentFormat
-    {
-        [Display(Name = "Drabinka pojedynczej eliminacji")]
-        SingleEliminationBracket,
-
-        [Display(Name = "Turniej kołowy")]
-        RoundRobinTournament,
-
-        [Display(Name = "Turniej szwajcarski")]
-        SwissTournament
-    }
     public class Tournament
     {
         [Key]
