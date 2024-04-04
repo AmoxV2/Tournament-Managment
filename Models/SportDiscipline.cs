@@ -19,5 +19,6 @@ namespace WWW_APP_PROJECT.Models
         [StringLength(100)]
         public string SportType { get; set; }
         public virtual ICollection<Tournament>? Tournaments { get; set; }
+        
     }
 }

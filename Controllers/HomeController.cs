@@ -15,7 +15,7 @@ namespace WWW_APP_PROJECT.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("./Views/TurnamentBootstrap/Index.cshtml");
         }
 
         public IActionResult Privacy()
