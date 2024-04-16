@@ -1,19 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using WWW_APP_PROJECT.Data.Enum;
 
 namespace WWW_APP_PROJECT.Models
 {
     public class Team
     {
-        [Key]
-        public int TeamId { get; set; }
-
-        [Required]
-        [StringLength(100)]
+        public int Id { get; set; }
         public string Name { get; set; }
-
-        [Required]
-        public DateTime? CreateDate { get; set; } = DateTime.Now;
-
-        public virtual ICollection<Tournament>? Tournaments { get; set; }
+        public string ImageUrl { get; set; }
+        public TeamSportDiscipline TeamSportDiscipline { get; set; }
+        public ICollection<TeamPlayer> TeamPlayers { get; set; }
+        [ForeignKey("AppUser")]
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+        public ICollection<TeamToTournament> TeamTournaments { get; set; }
     }
 }
