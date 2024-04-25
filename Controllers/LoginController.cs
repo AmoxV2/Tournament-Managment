@@ -47,5 +47,11 @@ namespace WWW_APP_PROJECT.Controllers
             TempData["Error"] = "User does not exist. Please try again.";
             return View(loginViewModel);
         }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
