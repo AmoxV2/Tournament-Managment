@@ -1,4 +1,4 @@
-﻿namespace RunGroupWebApp_tutorial.Helpers
+﻿namespace WWW_APP_PROJECT.Helpers
 {
     public class CloudinarySettings
     {

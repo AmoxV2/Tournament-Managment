@@ -2,16 +2,21 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
-using RunGroupWebApp_tutorial.Interfaces;
-using RunGroupWebApp_tutorial.Services;
+
 using WWW_APP_PROJECT.Data;
+using WWW_APP_PROJECT.Helpers;
+using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
+using WWW_APP_PROJECT.Repository;
+using WWW_APP_PROJECT.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectDatabase")));
 builder.Services.AddIdentity<AppUser, IdentityRole>()

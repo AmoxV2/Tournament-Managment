@@ -1,10 +1,10 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
-using RunGroupWebApp_tutorial.Helpers;
-using RunGroupWebApp_tutorial.Interfaces;
+using WWW_APP_PROJECT.Helpers;
+using WWW_APP_PROJECT.Interfaces;
 
-namespace RunGroupWebApp_tutorial.Services
+namespace WWW_APP_PROJECT.Services
 {
     public class PhotoService : IPhotoService
     {
