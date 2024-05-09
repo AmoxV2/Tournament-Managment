@@ -1,0 +1,29 @@
+﻿@using WWW_APP_PROJECT.Data.Enum
+@using WWW_APP_PROJECT.ViewModels
+
+@model CreateTeamViewModel;
+
+
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+    <div class="form-group">
+        <label asp-for="Name">Team name</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeamSportDiscipline">Sport discipline</label>
+        <br />
+        <select asp-for="TeamSportDiscipline" asp-items="@Html.GetEnumSelectList<TeamSportDiscipline>()">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="TeamSportDiscipline" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="file" class="form-control" placeholder="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,4 +1,4 @@
-﻿namespace RunGroupWebApp_tutorial.Data
+﻿namespace WWW_APP_PROJECT.Data
 {
     public static class UserRoles
     {
