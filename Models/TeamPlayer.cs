@@ -14,9 +14,7 @@ namespace WWW_APP_PROJECT.Models
         [ForeignKey("Team")]
         public int TeamId { get; set; }
         public Team Team { get; set; }
-        [ForeignKey("AppUser")]
-        public string? AppUserId { get; set; }
-        public AppUser? AppUser { get; set; }
+
 
     }
 }

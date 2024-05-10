@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RunGroupWebApp_tutorial.Data;
+using WWW_APP_PROJECT.Data;
 using WWW_APP_PROJECT.Models;
 using WWW_APP_PROJECT.ViewModels;
 
