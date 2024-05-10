@@ -7,18 +7,16 @@ namespace WWW_APP_PROJECT.Controllers
 {
     public class TeamController : Controller
     {
-        private readonly ITeamPlayerRepository _teamPlayerRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TeamController(ITeamRepository teamRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor
-            , ITeamPlayerRepository teamPlayerRepository)
+        public TeamController(ITeamRepository teamRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
             _teamRepository = teamRepository;
             _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
-            _teamPlayerRepository = teamPlayerRepository;
+        
 
         }
         public async Task<IActionResult> Index()
