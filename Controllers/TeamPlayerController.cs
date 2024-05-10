@@ -7,20 +7,28 @@ namespace WWW_APP_PROJECT.Controllers
 {
     public class TeamPlayerController : Controller
     {
+        private readonly ITeamRepository _teamRepository;
         private readonly ITeamPlayerRepository _teamPlayerRepository;
         private readonly IPhotoService _photoService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public TeamPlayerController(ITeamPlayerRepository teamPlayerRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+       
+        public TeamPlayerController(ITeamPlayerRepository teamPlayerRepository, IPhotoService photoService,
+            ITeamRepository teamRepository)
         {
             _teamPlayerRepository = teamPlayerRepository;
             _photoService = photoService;
-            _httpContextAccessor = httpContextAccessor;
+            _teamRepository = teamRepository;
         }
-        public IActionResult Create(int teamId)
+        public async Task<IActionResult> Create(int teamId)
         {
-
+            var teamName = (await _teamRepository.GetByIdAsync(teamId)).Name;
+            var CreateTeamPlayerVM = new CreateTeamPlayerViewModel
+            {
+                TeamId = teamId,
+                
+                TeamName = teamName
+            };
          
-            return View();
+            return View(CreateTeamPlayerVM);
         }
         //[HttpPost]
         //public async Task<IActionResult> Create(CreateTeamViewModel TeamVM)

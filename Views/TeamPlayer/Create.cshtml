@@ -1,0 +1,28 @@
+﻿@using WWW_APP_PROJECT.ViewModels
+@model CreateTeamPlayerViewModel;
+
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <input type="hidden" id="TeamId" name="TeamId" asp-for="TeamId" />
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control" placeholder="FirstName">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control" placeholder="LastName">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Age">Age</label>
+        <input asp-for="Age" type="number" min="1" max="150" class="form-control" placeholder="Age">
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="file" class="form-control" placeholder="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
