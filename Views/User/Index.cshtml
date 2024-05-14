@@ -1,39 +1,110 @@
-﻿
-
+﻿@using Microsoft.AspNetCore.Identity
 @model List<AppUser>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Dashboard</title>
+    <!--MY CSSS-->
+    <link rel="stylesheet" href="css/site.css" />
+    <!--Fonts-->
+    <!--Holtwood One SC-->
+    <link href='https://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+    <!--Abel-->
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <!-- Roboto Condensed-->
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
 
-<div class="album py-5 bg-dark">
-    <div class="container">
-        <div class="row">
-            @foreach (var item in Model)
-            {
+    <!--TrophyIcon-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+    <div class="grid-container">
 
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
-                        <img class="card-img-top" src="@item.ImageUrl" width="100%" height="225" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text text-white">@item.UserName</p>
-                            
-                            <div class="d-flex justify-content-between align-items-center">
-                                @* <div class="btn-group">
+        <!--SideBar-->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">Tournament Manager</a>
+                </div>
+                <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined">rewarded_ads</a>  Twoje Turnieje
+                </li>
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Drużyny</a>
+                </li>
+
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Users" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                </li>
+
+            </ul>
+            <ul class="sidebar-list on-bottom-container">
+                <!-- Ustawienia Na Dole -->
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Ustawienia</a>
+                </li>
+            </ul>
+        </aside>
+
+
+
+        <!--End Sidebar-->
+        <!--Main-->
+        <main class="main-container">
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
+                                <img class="card-img-top" src="@item.ImageUrl" width="100%" height="225" alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="card-text text-white">@item.UserName</p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @* <div class="btn-group">
                                     <a type="btn btn-success" asp-controller="Race" asp-action="Detail" asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-outline-secondary">View</a>
+                                    class="btn btn-sm btn-outline-secondary">View</a>
                                     @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
                                     {
-                                        <a asp-controller="Race" asp-action="Edit" asp-route-id="@item.Id"
-                                           class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="race" asp-action="Delete" asp-route-id="@item.Id"
-                                           class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    <a asp-controller="Race" asp-action="Edit" asp-route-id="@item.Id"
+                                    class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a asp-controller="race" asp-action="Delete" asp-route-id="@item.Id"
+                                    class="btn btn-sm btn-outline-secondary">Delete</a>
                                     }
-                                </div> *@
-                              
+                                    </div> *@
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    }
+
                 </div>
+            </div>
 
-            }
 
-        </div>
+
+
     </div>
-</div>
+    </main>
+
+    <!--End Main-->
+    </div>
+
+    <!-- MY JS -->
+    <script src="js/site.js"></script>
+</body>
+</html>

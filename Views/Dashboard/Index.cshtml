@@ -1,74 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-
-
-
-
-<h1 class="display-4 fw-normal text-light ">User Dashboard</h1>
-<a type="button" class="btn btn-dark " asp-area="" asp-controller="Club" asp-action="Create">Create Club</a>
-<a type="button" class="btn btn-dark" asp-area="" asp-controller="Race" asp-action="Create">Create Race</a>
-<a type="button" class="btn btn-dark" asp-area="" asp-controller="Dashboard" asp-action="EditUserProfile">Edit User Profile</a>
-<hr />
-<div class="album py-5 bg-dark">
-    <div class="container">
-        <h2 class="display-4 fw-normal text-light">Your races</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-            @* @foreach (var item in Model.Races)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="@item.Image" width="100%" height="225" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">@item.Title</p>
-                            <p class="card-text">@item.Description</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a type="btn btn-success" asp-controller="Club" asp-action="Detail" asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-outline-secondary">View</a>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <a asp-controller="Race" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="Race" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
-                                    }
-                                </div>
-                                <small class="text-muted">@item.RaceCategory</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-        <h2 class="display-4 fw-normal">Your Clubs</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            @foreach (var item in Model.Clubs)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="@item.Image" width="100%" height="225" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">@item.Title</p>
-                            <p class="card-text">@item.Description</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a type="btn btn-success" asp-controller="Club" asp-action="Detail" asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-outline-secondary">View</a>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <a asp-controller="Club" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="Club" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
-                                    }
-                                </div>
-                                <small class="text-muted">@item.ClubCategory</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            } *@
-        </div>
-
-    </div>
-</div>
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -100,18 +31,28 @@
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <span class="material-symbols-outlined">dashboard</span> Tournament Manager
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">Tournament Manager</a>
                 </div>
                 <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <span class="material-symbols-outlined">rewarded_ads</span>  Twoje Turnieje
+                    <a class="material-symbols-outlined">rewarded_ads</a>  Twoje Turnieje
                 </li>
                 <li class="sidebar-list-item">
-                    <span class="material-symbols-outlined">settings </span>  Ustawienia
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Drużyny</a>
                 </li>
 
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Users" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                </li>
+   
+            </ul>
+            <ul class="sidebar-list on-bottom-container">
+                <!-- Ustawienia Na Dole -->
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Ustawienia</a>
+                </li>
             </ul>
         </aside>
 

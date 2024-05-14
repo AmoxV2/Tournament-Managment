@@ -26,9 +26,13 @@ namespace WWW_APP_PROJECT.Controllers
             user.FirstName = editVM.FirstName;
             user.ImageUrl = photoResult.Url.ToString();
             user.LastName = editVM.LastName;
-           
+
         }
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Settings()
         {
             return View();
         }
