@@ -1,67 +1,36 @@
 ﻿@using WWW_APP_PROJECT.Data
-
 @model Team;
 
-
-<div class="container">
-
-    <!-- Portfolio Item Heading -->
-    <h1 class="my-4">
-        Team Details
-    </h1>
-
-    <!-- Portfolio Item Row -->
+<div class="container mt-5">
     <div class="row">
-
         <div class="col-md-8">
-            <img class="img-fluid" src="@Model.ImageUrl" alt="">
+            <img class="img-fluid rounded" src="@Model.ImageUrl" alt="@Model.Name">
         </div>
-
         <div class="col-md-4">
-            <h3 class="my-3">@Model.Name</h3>
-            <p>@Model.TeamSportDiscipline</p>
-            
-            <h3 class="my-4">List of players</h3>
-
+            <h2>@Model.Name</h2>
+            <p class="lead">@Model.TeamSportDiscipline</p>
+            <a class="btn btn-primary mb-3" asp-area="" asp-controller="TeamPlayer"
+               asp-action="Create" asp-route-teamId="@Model.Id">Add Player</a>
+            <h4>List of players</h4>
             <div class="row">
                 @foreach (var player in Model.TeamPlayers)
                 {
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <a href="#">
-                            <img class="img-fluid" src="@player.ImageUrl" alt="">
-                        </a>
+                    <div class="col-md-6 col-sm-12 mb-4">
+                        <div class="card">
+                            <img class="card-img-top" src="@player.ImageUrl" alt="@player.FirstName @player.LastName">
+                            <div class="card-body">
+                                <h5 class="card-title">@player.FirstName @player.LastName</h5>
+                                <a class="btn btn-info" asp-area="" asp-controller="TeamPlayer"
+                                   asp-action="Detail">Details</a>
+                                <a class="btn btn-warning" asp-area="" asp-controller="TeamPlayer"
+                                   asp-action="Edit">Edit</a>
+                                <a class="btn btn-danger" asp-area="" asp-controller="TeamPlayer"
+                                   asp-action="Delete">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 }
-                <div class="col-md-3 col-sm-6 mb-4">
-                </div>
-
-
             </div>
-            <a type="button" class="btn btn-dark" asp-area="" asp-controller="TeamPlayer" 
-            asp-action="Create" asp-route-id="@Model.Id">Add Player</a>
         </div>
-
     </div>
-    <!-- /.row -->
-    <!-- Related Projects Row -->
-    <h3 class="my-4">List of players</h3>
-
-    <div class="row">
-        @foreach (var player in Model.TeamPlayers)
-        {
-            <div class="col-md-3 col-sm-6 mb-4">
-                <a href="#">
-                    <img class="img-fluid" src="@player.ImageUrl" alt="">
-                </a>
-            </div>
-        }
-        <div class="col-md-3 col-sm-6 mb-4">
-           
-        </div>
-
-       
-    </div>
-    <!-- /.row -->
-
 </div>
-<!-- /.container -->

@@ -7,45 +7,55 @@ namespace WWW_APP_PROJECT.Controllers
 {
     public class TeamPlayerController : Controller
     {
+        private readonly ITeamRepository _teamRepository;
         private readonly ITeamPlayerRepository _teamPlayerRepository;
         private readonly IPhotoService _photoService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public TeamPlayerController(ITeamPlayerRepository teamPlayerRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+       
+        public TeamPlayerController(ITeamPlayerRepository teamPlayerRepository, IPhotoService photoService,
+            ITeamRepository teamRepository)
         {
             _teamPlayerRepository = teamPlayerRepository;
             _photoService = photoService;
-            _httpContextAccessor = httpContextAccessor;
+            _teamRepository = teamRepository;
         }
-        public IActionResult Create(int teamId)
+        public async Task<IActionResult> Create(int teamId)
         {
-
+            var teamName = (await _teamRepository.GetByIdAsync(teamId)).Name;
+            var CreateTeamPlayerVM = new CreateTeamPlayerViewModel
+            {
+                TeamId = teamId,
+                
+                TeamName = teamName
+            };
          
-            return View();
+            return View(CreateTeamPlayerVM);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateTeamViewModel TeamVM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = await _photoService.AddPhotoAsync(TeamVM.Image);
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTeamPlayerViewModel TeamPlayerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _photoService.AddPhotoAsync(TeamPlayerVM.Image);
 
-        //        var team = new Team
-        //        {
-        //            Name = TeamVM.Name,
-        //            TeamSportDiscipline = TeamVM.TeamSportDiscipline,
-        //            AppUserId = TeamVM.AppUserId,
-        //            ImageUrl = result.Url.ToString(),
+                var teamPlayer = new TeamPlayer
+                {
+                    FirstName = TeamPlayerVM.FirstName,
+                    LastName = TeamPlayerVM.LastName,
+                    Age = TeamPlayerVM.Age,
+                    TeamId = TeamPlayerVM.TeamId,
+                    ImageUrl = result.Url.ToString(),
 
 
-        //        };
-        //        _teamRepository.Add(team);
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("", "Photo upload failed");
-        //    }
-        //    return View(TeamVM);
-        //}
+                };
+                _teamPlayerRepository.Add(teamPlayer);
+                return RedirectToAction("Detail", "Team", new { id = TeamPlayerVM.TeamId });
+            
+            }   
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(TeamPlayerVM);
+        }
     }
 }

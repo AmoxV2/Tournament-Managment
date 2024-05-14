@@ -11,6 +11,6 @@ namespace WWW_APP_PROJECT.ViewModels
         public int Age { get; set; }
         public IFormFile Image { get; set; }
         public int TeamId { get; set; }
-        public Team team { get; set; }
+        public string? TeamName { get; set; }
     }
 }
