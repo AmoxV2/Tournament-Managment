@@ -30,30 +30,32 @@ namespace WWW_APP_PROJECT.Controllers
          
             return View(CreateTeamPlayerVM);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateTeamViewModel TeamVM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = await _photoService.AddPhotoAsync(TeamVM.Image);
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTeamPlayerViewModel TeamPlayerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _photoService.AddPhotoAsync(TeamPlayerVM.Image);
 
-        //        var team = new Team
-        //        {
-        //            Name = TeamVM.Name,
-        //            TeamSportDiscipline = TeamVM.TeamSportDiscipline,
-        //            AppUserId = TeamVM.AppUserId,
-        //            ImageUrl = result.Url.ToString(),
+                var teamPlayer = new TeamPlayer
+                {
+                    FirstName = TeamPlayerVM.FirstName,
+                    LastName = TeamPlayerVM.LastName,
+                    Age = TeamPlayerVM.Age,
+                    TeamId = TeamPlayerVM.TeamId,
+                    ImageUrl = result.Url.ToString(),
 
 
-        //        };
-        //        _teamRepository.Add(team);
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("", "Photo upload failed");
-        //    }
-        //    return View(TeamVM);
-        //}
+                };
+                _teamPlayerRepository.Add(teamPlayer);
+                return RedirectToAction("Detail", "Team", new { id = TeamPlayerVM.TeamId });
+            
+            }   
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(TeamPlayerVM);
+        }
     }
 }

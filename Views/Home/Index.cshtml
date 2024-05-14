@@ -23,7 +23,19 @@
         <div class="hero-wrap">
             
             <h1>Turnament Management</h1>
-            <button type="button" class="btn btn-secondary">Create Turnament</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-secondary"  asp-area="" asp-controller="Tournament"
+                asp-action="Create">Create Turnament</a>
+            }
+            else
+            {
+                <div class="d-inline-block">
+                    To create Tournament
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Login" asp-action="Index">Login</a> or if you have an account
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Register" asp-action="Index">Register</a>
+                </div>
+            }
            
             
            

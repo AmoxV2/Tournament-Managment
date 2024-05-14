@@ -4,6 +4,7 @@
 <h1>You are creating player for @Model.TeamName</h1>
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <input type="hidden" id="TeamId" name="TeamId" asp-for="TeamId" />
+    <input type="hidden" id="TeamName" name="TeamName" asp-for="TeamName" />
     <div class="form-group" style="max-width: 500px;">
         <label asp-for="FirstName">First Name</label>
         <input asp-for="FirstName" class="form-control" placeholder="FirstName">
