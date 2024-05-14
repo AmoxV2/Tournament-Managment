@@ -16,6 +16,12 @@ namespace WWW_APP_PROJECT.Controllers
             this._httpContextAccessor = httpContextAccessor;
             _tournamentRepository = tournamentRepository;
         }
+        public async Task<IActionResult> Index()
+        {
+            List<TeamTournament> tournaments = (List<TeamTournament>)await _tournamentRepository.GetUserTournaments();
+            return View(tournaments);
+            
+        }
         public IActionResult Create()
         {
             var curUserId = _httpContextAccessor.HttpContext?.User.GetUserId();

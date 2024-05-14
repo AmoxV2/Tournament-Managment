@@ -32,10 +32,12 @@
         }
         else
         {
+            <select input asp-for="NumberOfTeams" class="form-control">
             @for (int i = 4; i <= 20; i++)
             {
                 <option value="@i">@i</option>
             }
+            </select>
         }
     </div>
     

@@ -29,9 +29,11 @@ namespace WWW_APP_PROJECT.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TeamTournament>> GetUserTournaments()
+        public async Task<IEnumerable<TeamTournament>> GetUserTournaments()
         {
-            throw new NotImplementedException();
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var userTournaments = _context.TeamTournaments.Where(c => c.AppUser.Id == curUser);
+            return userTournaments.ToList();
         }
 
         public bool Save()
