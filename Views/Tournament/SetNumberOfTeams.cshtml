@@ -1,3 +1,43 @@
-﻿@using WWW_APP_PROJECT.ViewModels
+﻿@using WWW_APP_PROJECT.Data.Enum
+@using WWW_APP_PROJECT.ViewModels
 @model CreateTournamentViewModel;
-@Model.Name
+<form method="post" asp-action="CreateFin" enctype="multipart/form-data">
+    <input type="hidden" id="AppUseNumberOfTeams" name="AppUserId" asp-for="AppUserId" />
+    <input type="hidden" id="Name" name="Name" asp-for="Name" />
+    <input type="hidden" id="Description" name="Description" asp-for="Description" />
+    <input type="hidden" id="StartDate" name="StartDate" asp-for="StartDate" />
+    <input type="hidden" id="EndDate" name="EndDate" asp-for="EndDate" />
+    <input type="hidden" id="TeamSportDiscipline" name="TeamSportDiscipline" asp-for="TeamSportDiscipline" />
+    <input type="hidden" id="TournamentType" name="TournamentType" asp-for="TournamentType" />
+    <input type="hidden" id="Street" name="Street" asp-for="Street" />
+    <input type="hidden" id="City" name="City" asp-for="City" />
+    <input type="hidden" id="State" name="State" asp-for="State" />
+    <input type="hidden" id="IsPublic" name="IsPublic" asp-for="IsPublic" />
+   
+   
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="file" class="form-control" placeholder="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NumberOfTeams">Number of teams</label>
+        @if (Model.TournamentType == TournamentType.Knockout)
+        {
+            <select input asp-for="NumberOfTeams" class="form-control">
+                <option value="4">4</option>
+        <option value="8">8</option>
+        <option value="16">16</option>
+            </select>
+        }
+        else
+        {
+            @for (int i = 4; i <= 20; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        }
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create Tournament</button>
+</form>

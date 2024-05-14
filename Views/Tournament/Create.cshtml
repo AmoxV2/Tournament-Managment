@@ -42,39 +42,23 @@
         <span asp-validation-for="TournamentType" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Image">Image</label>
-        <input asp-for="Image" type="file" class="form-control" placeholder="Image">
-        <span asp-validation-for="Image" class="text-danger"></span>
+        <label asp-for="Street">Street</label>
+        <input asp-for=Street class="form-control" placeholder="Street">
+        <span asp-validation-for="Street" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Address.Street">Street</label>
-        <input asp-for=Address.Street class="form-control" placeholder="Street">
-        <span asp-validation-for="Address.Street" class="text-danger"></span>
+        <label asp-for="City">City</label>
+        <input asp-for=City class="form-control" placeholder="City">
+        <span asp-validation-for="City" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Address.City">City</label>
-        <input asp-for=Address.City class="form-control" placeholder="City">
-        <span asp-validation-for="Address.City" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Address.State">State</label>
-        <input asp-for=Address.State class="form-control" placeholder="State">
-        <span asp-validation-for="Address.State" class="text-danger"></span>
+        <label asp-for="State">State</label>
+        <input asp-for=State class="form-control" placeholder="State">
+        <span asp-validation-for="State" class="text-danger"></span>
     </div>
     <input asp-for="IsPublic" type="checkbox" class="form-check-input" />
     <label class="form-check-label" asp-for="IsPublic">Is Public</label>
-    <p>Choose who would contribute in this Tournament.</p>
-    <div class="d-inline-flex justify-content-start">
-        <div class="form-check mr-3">
-            <input asp-for="IsTeamTournament" type="radio" value="true" class="form-check-input" id="teamTournament" name="tournamentType" />
-            <label class="form-check-label" for="teamTournament">Team Tournament      
-            </label>
-        </div>
-        <div class="form-check ml-3">
-            <input asp-for="IsTeamTournament" type="radio" value="false" class="form-check-input" id="soloTournament" name="tournamentType" />
-            <label class="form-check-label" for="soloTournament">Solo Tournament</label>
-        </div>
-    </div>
+    
         <button type="submit" class="btn btn-primary">Next</button>
 </form>
 </div>

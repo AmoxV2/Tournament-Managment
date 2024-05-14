@@ -13,13 +13,13 @@ namespace WWW_APP_PROJECT.ViewModels
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public TournamentType TournamentType { get; set; }
-        public int? NumberOfTeams { get; set; }
+        public int NumberOfTeams { get; set; }
         public TeamSportDiscipline TeamSportDiscipline { get; set; }
-        public IFormFile Image { get; set; }
-        public string? ImageUrl { get; set; }
-        public Address Address { get; set; }
+        public IFormFile? Image { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string State { get; set; }
         public bool IsPublic { get; set; }
-        public bool IsTeamTournament { get; set; }
         public string AppUserId { get; set; }
         
 
