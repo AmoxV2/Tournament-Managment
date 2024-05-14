@@ -36,9 +36,9 @@ namespace WWW_APP_PROJECT.Controllers
             return View(tournamentVM);
 
         }
-        public IActionResult SetNumberOfTeams()
+        public IActionResult SetNumberOfTeams(CreateTournamentViewModel tournamentVM)
         {
-            return View();
+            return View(tournamentVM);
         }
     }
 }
