@@ -127,6 +127,7 @@ html {
 .main-title {
     display: flex;
     justify-content: space-between;
+    margin-bottom:10px;
 }
 
 main-cards {
@@ -212,3 +213,76 @@ a {
     a:hover {
         color: black; 
     }
+/*-------------------Button-----------------*/
+.margin{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.fixed-width-btn {
+    align-self: center; /* Wyœrodkowanie przycisku wzd³u¿ osi pionowej */
+    width: 200px;
+    min-width:150px;/* Zmieñ na wartoœæ, której potrzebujesz */
+    text-align: center;
+    white-space: nowrap;
+}
+/*-----------------Image------------------*/
+.margin-top {
+    margin-top: -10px; /* Zmieñ na wartoœæ, której potrzebujesz */
+    margin-bottom: 20px; /* Zmieñ na wartoœæ, której potrzebujesz */
+}
+
+/*-----------------Foorm------------------*/
+.form-margin{ 
+    margin-left: 40px;
+    margin-right: 50px;
+    margin-bottom:20px;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-bg {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.grey-text {
+    color: #6c7577;
+}
+
+/*----------------Placeholder---------------*/
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+}
+/*------------TEXT---------*/
+.no-wrap{ 
+    white-space: nowrap;
+
+    
+}
+/*----------------ICON--------------*/
+.small-icon-material-symbols-outlined{
+    font-size: 20px !important; /* Zmieñ na rozmiar, który chcesz */
+}
+
+/*-------------BOX------------------*/
+.small-card {
+    width: 300px;
+    height: 50px;
+    word-wrap: break-word; /* Dodaj prze³amanie linii */
+
+}
+
+

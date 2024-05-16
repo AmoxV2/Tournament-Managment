@@ -2,63 +2,145 @@
 @using WWW_APP_PROJECT.ViewModels
 @model CreateTournamentViewModel;
 
-<div style="max-width: 500px;">
-<form method="post" asp-action="Create" enctype="multipart/form-data">
-    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
-    <div class="form-group">
-        <label asp-for="Name">Name</label>
-        <input asp-for="Name" class="form-control" placeholder="Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
+
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Dashboard</title>
+    <!--MY CSSS-->
+    <link rel="stylesheet" href="css/site.css" />
+    <!--Fonts-->
+    <!--Holtwood One SC-->
+    <link href='https://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+    <!--Abel-->
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <!-- Roboto Condensed-->
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+
+    <!--TrophyIcon-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+    <div class="grid-container">
+
+        <!--SideBar-->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournament Manager</a>
+                </div>
+                <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">rewarded_ads</a>   <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournaments</a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
+                </li>
+
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="User" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                </li>
+
+            </ul>
+            <ul class="sidebar-list on-bottom-container">
+                <!-- Ustawienia Na Dole -->
+                <li class="sidebar-list-item">
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Settings</a>
+                </li>
+            </ul>
+        </aside>
+
+
+
+        <!--End Sidebar-->
+        <!--Main-->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>Create Tournament</h2>
+            </div>
+            
+                <form method="post" asp-action="Create" enctype="multipart/form-data">
+                    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+                <div class="form-group form-margin">
+                        <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control form-bg grey-text" placeholder="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="Description">Description</label>
+                    <input asp-for="Description" class="form-control form-bg grey-text" placeholder="Description">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="StartDate">Start Date</label>
+                    <input asp-for="StartDate" class="form-control form-bg grey-text" type="date">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="EndDate">End Date</label>
+                    <input asp-for="EndDate" class="form-control form-bg grey-text" type="date">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="TeamSportDiscipline">Sport discipline</label>
+                        <br />
+                    <select asp-for="TeamSportDiscipline" class="form-bg grey-text" asp-items="@Html.GetEnumSelectList<TeamSportDiscipline>()">
+                            <option>--Select--</option>
+                        </select>
+                        <span asp-validation-for="TeamSportDiscipline" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="TournamentType">Tournament type</label>
+                        <br />
+                    <select asp-for="TournamentType" class="form-bg grey-text" asp-items="@Html.GetEnumSelectList<TournamentType>()">
+                            <option>--Select--</option>
+                        </select>
+                        <span asp-validation-for="TournamentType" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="Street">Street</label>
+                    <input asp-for=Street class="form-control form-bg grey-text" placeholder="Street">
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="City">City</label>
+                    <input asp-for=City class="form-control form-bg grey-text" placeholder="City">
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                        <label asp-for="State">State</label>
+                    <input asp-for=State class="form-control form-bg grey-text" placeholder="State">
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                <div class="form-group form-margin ">
+                    <input asp-for="IsPublic" type="checkbox" class="form-check-input" />
+                    <label class="form-check-label" asp-for="IsPublic">Is Public</label>
+                </div>  
+                <div class="form-group center-content">
+                <button type="submit" class="btn btn-dark fixed-width-btn">Next</button>
+                </div>
+                </form>
+
+
+
+
+
     </div>
-    <div class="form-group">
-        <label asp-for="Description">Description</label>
-        <input asp-for="Description" class="form-control" placeholder="Description">
-        <span asp-validation-for="Description" class="text-danger"></span>
+    </main>
+
+    <!--End Main-->
     </div>
-    <div class="form-group">
-        <label asp-for="StartDate">Start Date</label>
-        <input asp-for="StartDate" class="form-control" type="date">
-        <span asp-validation-for="StartDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="EndDate">End Date</label>
-        <input asp-for="EndDate" class="form-control" type="date">
-        <span asp-validation-for="EndDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="TeamSportDiscipline">Sport discipline</label>
-        <br />
-        <select asp-for="TeamSportDiscipline" asp-items="@Html.GetEnumSelectList<TeamSportDiscipline>()">
-            <option>--Select--</option>
-        </select>
-        <span asp-validation-for="TeamSportDiscipline" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="TournamentType">Tournament type</label>
-        <br />
-        <select asp-for="TournamentType" asp-items="@Html.GetEnumSelectList<TournamentType>()">
-            <option>--Select--</option>
-        </select>
-        <span asp-validation-for="TournamentType" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Street">Street</label>
-        <input asp-for=Street class="form-control" placeholder="Street">
-        <span asp-validation-for="Street" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="City">City</label>
-        <input asp-for=City class="form-control" placeholder="City">
-        <span asp-validation-for="City" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="State">State</label>
-        <input asp-for=State class="form-control" placeholder="State">
-        <span asp-validation-for="State" class="text-danger"></span>
-    </div>
-    <input asp-for="IsPublic" type="checkbox" class="form-check-input" />
-    <label class="form-check-label" asp-for="IsPublic">Is Public</label>
-    
-        <button type="submit" class="btn btn-primary">Next</button>
-</form>
-</div>
+
+    <!-- MY JS -->
+    <script src="js/site.js"></script>
+</body>
+</html>

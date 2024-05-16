@@ -33,27 +33,27 @@
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">Tournament Manager</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournament Manager</a>
                 </div>
                 <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined">rewarded_ads</a>  Twoje Turnieje
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">rewarded_ads</a>   <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournaments</a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Drużyny</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
                 </li>
 
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Users" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="User" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                 </li>
 
             </ul>
             <ul class="sidebar-list on-bottom-container">
                 <!-- Ustawienia Na Dole -->
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Ustawienia</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Settings</a>
                 </li>
             </ul>
         </aside>
@@ -63,24 +63,28 @@
         <!--End Sidebar-->
         <!--Main-->
         <main class="main-container">
+            <div class="main-title">
+                <h2>Teams</h2>
+                <a type="button" class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Team" asp-action="Create">Create Team</a>
+            </div>
             <div class="container">
                 <div class="row">
                     @foreach (var item in Model)
                     {
 
                         <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top" src="@item.ImageUrl" width="100%" height="225" alt="Card image cap">
+                            <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
                                 <div class="card-body">
-                                    <p class="card-text">@item.Name</p>
-                                    <p class="card-text">@item.TeamSportDiscipline</p>
+                                    <img class="card-img-top margin-top" src="@item.ImageUrl" alt="Card image cap">
+                                    <p class="card-text">Team Name: @item.Name</p>
+                                    <p class="card-text">Dyscypline: @item.TeamSportDiscipline</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a type="btn btn-success" asp-controller="Team" asp-action="Detail" asp-route-id="@item.Id"
                                                class="btn btn-sm btn-outline-secondary">View</a>
                                             @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
                                             {
-                                                <a asp-controller="Tea," asp-action="Edit" asp-route-id="@item.Id"
+                                                <a asp-controller="Team" asp-action="Edit" asp-route-id="@item.Id"
                                                    class="btn btn-sm btn-outline-secondary">Edit</a>
                                                 <a asp-controller="Team" asp-action="Delete" asp-route-id="@item.Id"
                                                    class="btn btn-sm btn-outline-secondary">Delete</a>
@@ -95,7 +99,7 @@
                     }
 
                 </div>
-                <a type="button" class="btn btn-dark" asp-area="" asp-controller="Team" asp-action="Create">Create team</a>
+                
             </div>
 
 

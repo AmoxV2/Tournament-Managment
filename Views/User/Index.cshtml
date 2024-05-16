@@ -31,27 +31,27 @@
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">Tournament Manager</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournament Manager</a>
                 </div>
                 <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined">rewarded_ads</a>  Twoje Turnieje
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">rewarded_ads</a>   <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournaments</a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Drużyny</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
                 </li>
 
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Users" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="User" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                 </li>
 
             </ul>
             <ul class="sidebar-list on-bottom-container">
                 <!-- Ustawienia Na Dole -->
                 <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Ustawienia</a>
+                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Settings</a>
                 </li>
             </ul>
         </aside>
@@ -61,6 +61,9 @@
         <!--End Sidebar-->
         <!--Main-->
         <main class="main-container">
+            <div class="main-title">
+                <h2>Users</h2>
+            </div>
             <div class="container">
                 <div class="row">
                     @foreach (var item in Model)
