@@ -92,6 +92,7 @@ namespace WWW_APP_PROJECT.Controllers
         }
         public async Task<IActionResult> Manage(int id)
         {
+            return View();
             var torunamentTeams = await _tournamentRepository.GetTeams(id);
             var tournament = await _tournamentRepository.GetByIdAsync(id);
 
