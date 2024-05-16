@@ -18,6 +18,7 @@ builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITeamPlayerRepository, TeamPlayerRepository>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
+builder.Services.AddScoped<ITeamToTournamentRepository, TeamToTournamentRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectDatabase")));

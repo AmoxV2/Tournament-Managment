@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WWW_APP_PROJECT.Data;
+using WWW_APP_PROJECT.Data.Enum;
 using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
 
@@ -28,6 +29,11 @@ namespace WWW_APP_PROJECT.Repository
         public async Task<Team> GetByIdAsync(int id)
         {
             return await _context.Teams.Include(t => t.TeamPlayers).FirstOrDefaultAsync(i => i.Id == id);
+        }
+
+        public async Task<List<Team>> GetTeamsBySport(TeamSportDiscipline sportDiscipline)
+        {
+            return await _context.Teams.Where(c => c.TeamSportDiscipline == sportDiscipline).ToListAsync();
         }
 
         public async Task<IEnumerable<Team>> GetUserTeams()

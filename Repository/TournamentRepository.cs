@@ -1,4 +1,5 @@
-﻿using WWW_APP_PROJECT.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WWW_APP_PROJECT.Data;
 using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
 
@@ -8,10 +9,12 @@ namespace WWW_APP_PROJECT.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        
         public TournamentRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            
         }
         public bool Add(TeamTournament tournament)
         {
@@ -24,11 +27,25 @@ namespace WWW_APP_PROJECT.Repository
             throw new NotImplementedException();
         }
 
-        public Task<TeamTournament> GetByIdAsync(int id)
+        public async Task<TeamTournament> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.TeamTournaments.FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<List<Team>> GetTeams(int tournamentId)
+        {
+            List<TeamToTournament> teamToTournaments = await _context.TeamToTournaments.Where(c => c.TeamTournamentId == tournamentId).ToListAsync();
+            List<Team> teams = new List<Team>();
+            foreach (var item in teamToTournaments)
+            {
+                teams.Add(await GetTeamByIdAsync(item.TeamId));
+            }
+            return teams;
+        }
+        public async Task<Team> GetTeamByIdAsync(int id)
+        {
+            return await _context.Teams.Include(t => t.TeamPlayers).FirstOrDefaultAsync(i => i.Id == id);
+        }
         public async Task<IEnumerable<TeamTournament>> GetUserTournaments()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
@@ -36,6 +53,13 @@ namespace WWW_APP_PROJECT.Repository
             return userTournaments.ToList();
         }
 
+        public bool hasTorunamentStarted(int tournamentId)
+        {
+            var match = _context.TeamMatches.FirstOrDefault(i => i.Id == tournamentId);
+            if (match != null) return true;
+            else return false;
+
+        }
         public bool Save()
         {
             var saved = _context.SaveChanges();

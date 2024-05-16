@@ -1,0 +1,27 @@
+﻿@using WWW_APP_PROJECT.ViewModels
+
+@model List<Team>
+
+<h1>Competitors:</h1>
+<div style="display: flex;">
+    <div style="margin-right: 100px">
+        <h2>Tournament Teams</h2>
+        <ul class="list-group">
+            @foreach (var team in Model.OrderBy(t => t.Name))
+            {
+
+
+
+                <li class="list-group-item d-flex justify-content-between">
+                    @team.Name
+                    
+                </li>
+            }
+        </ul>
+    </div>
+
+    
+        
+    </div>
+    <h2>Generate Matches</h2><a class="nav-link text-dark" asp-controller="Team" asp-action="Create">Create</a>
+</div>
