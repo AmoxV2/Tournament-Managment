@@ -53,6 +53,13 @@ namespace WWW_APP_PROJECT.Repository
             return userTournaments.ToList();
         }
 
+        public bool hasTorunamentStarted(int tournamentId)
+        {
+            var match = _context.TeamMatches.FirstOrDefault(i => i.Id == tournamentId);
+            if (match != null) return true;
+            else return false;
+
+        }
         public bool Save()
         {
             var saved = _context.SaveChanges();

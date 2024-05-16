@@ -1,1 +1,39 @@
-﻿dodaj siusiaczku
+﻿@using WWW_APP_PROJECT.ViewModels
+
+@model AddTeamsTournamentViewModel
+
+<h1>Add Teams to Tournament</h1>
+<h3>You have added @(Model.TournamentTeams.Count)/@Model.Tournament.NumberOfTeams</h3>
+<div style="display: flex;">
+    <div style="margin-right: 100px">
+        <h2>Tournament Teams</h2>
+        <ul class="list-group">
+            @foreach (var team in Model.TournamentTeams.OrderBy(t => t.Name))
+            {
+
+
+
+                <li class="list-group-item d-flex justify-content-between">
+                    @team.Name
+                    <a class="nav-link text-dark" asp-controller="Tournament" asp-action="RemoveTeam" asp-route-teamId="@team.Id"
+                       asp-route-tournamentId="@Model.Tournament.Id">-</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <h2>Available Teams</h2>
+        <ul class="list-group">
+            @foreach (var team in Model.AvailableTeams.OrderBy(t => t.Name))
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    @team.Name
+                    <a class="nav-link text-dark" asp-controller="Tournament" asp-action="AddTeam" asp-route-teamId="@team.Id"
+                       asp-route-tournamentId="@Model.Tournament.Id">+</a>
+                </li>
+            }
+        </ul>
+        <h2>You can create more teams here</h2><a class="nav-link text-dark" asp-controller="Team" asp-action="Create">Create</a>
+    </div>
+</div>

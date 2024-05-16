@@ -11,13 +11,15 @@ namespace WWW_APP_PROJECT.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITournamentRepository _tournamentRepository;
         private readonly ITeamRepository _teamRepository;
+        private readonly ITeamToTournamentRepository _teamToTournamentRepository;
         public TournamentController(IPhotoService photoService, IHttpContextAccessor httpContextAccessor, ITournamentRepository tournamentRepository,
-            ITeamRepository teamRepository)
+            ITeamRepository teamRepository, ITeamToTournamentRepository teamToTournamentRepository)
         {
             this._photoService = photoService;
             this._httpContextAccessor = httpContextAccessor;
             _tournamentRepository = tournamentRepository;
             _teamRepository = teamRepository;
+            _teamToTournamentRepository = teamToTournamentRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -92,22 +94,54 @@ namespace WWW_APP_PROJECT.Controllers
         {
             var torunamentTeams = await _tournamentRepository.GetTeams(id);
             var tournament = await _tournamentRepository.GetByIdAsync(id);
-            
-            if(torunamentTeams.Count < tournament.NumberOfTeams)
+
+            if (torunamentTeams.Count < tournament.NumberOfTeams)
             {
                 return RedirectToAction("AddTeams", new { id = id });
             }
+            else if (!_tournamentRepository.hasTorunamentStarted(id))
+            {
+                return RedirectToAction("Start", new { id = id }); ;
+            }
             return View();
+        }
+        public async Task<IActionResult> Start(int id)
+        {
+            var tournamentTeams = await _tournamentRepository.GetTeams(id);
+            return View(tournamentTeams);
         }
         public async Task<IActionResult> AddTeams(int id)
         {
             var tournament = await _tournamentRepository.GetByIdAsync(id);
             List<Team> torunamentTeams = await _tournamentRepository.GetTeams(id);
-            List<Team> accesibleTeams = await _teamRepository.GetTeamsBySport(tournament.TeamSportDiscipline);
-            accesibleTeams.RemoveAll(team => torunamentTeams.Any(t => t.Id == team.Id));
+            List<Team> availableTeams = await _teamRepository.GetTeamsBySport(tournament.TeamSportDiscipline);
+            availableTeams.RemoveAll(team => torunamentTeams.Any(t => t.Id == team.Id));
 
+            var addTeamsTournamentVM = new AddTeamsTournamentViewModel
+            {
+                TournamentTeams = torunamentTeams,
+                AvailableTeams = availableTeams,
+                Tournament = tournament,
+                
+            };
 
-            return View();
+            return View(addTeamsTournamentVM);
+        }
+        public IActionResult AddTeam(int tournamentId, int teamId)
+        {
+            var teamtoTournament = new TeamToTournament
+            {
+                TeamId = teamId,
+                TeamTournamentId = tournamentId
+            };
+            _teamToTournamentRepository.Add(teamtoTournament);
+            return RedirectToAction("Manage", new { id = tournamentId });
+        }
+        public IActionResult RemoveTeam(int tournamentId, int teamId)
+        {
+            var teamToTournament = _teamToTournamentRepository.GetById(teamId, tournamentId);
+            _teamToTournamentRepository.Delete(teamToTournament);
+            return RedirectToAction("Manage", new { id = tournamentId });
         }
     }
 }
