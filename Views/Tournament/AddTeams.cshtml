@@ -1,39 +1,74 @@
 ﻿@using WWW_APP_PROJECT.ViewModels
 
 @model AddTeamsTournamentViewModel
-
-<h1>Add Teams to Tournament</h1>
-<h3>You have added @(Model.TournamentTeams.Count)/@Model.Tournament.NumberOfTeams</h3>
-<div style="display: flex;">
-    <div style="margin-right: 100px">
-        <h2>Tournament Teams</h2>
-        <ul class="list-group">
-            @foreach (var team in Model.TournamentTeams.OrderBy(t => t.Name))
-            {
+@{
+    Layout = "SidebarLayout";
+}
+<div class="main-title">
+    <h2>Add Teams to Tournament</h2>
+    <h4>You have added @(Model.TournamentTeams.Count)/@Model.Tournament.NumberOfTeams</h4>
+</div>
 
 
+<div style="display: flex; justify-content: space-between;  ">
 
-                <li class="list-group-item d-flex justify-content-between">
-                    @team.Name
-                    <a class="nav-link text-dark" asp-controller="Tournament" asp-action="RemoveTeam" asp-route-teamId="@team.Id"
-                       asp-route-tournamentId="@Model.Tournament.Id">-</a>
-                </li>
-            }
-        </ul>
-    </div>
+   
 
-    <div>
+    <div style="flex: 1; margin-right: 10px;">
         <h2>Available Teams</h2>
         <ul class="list-group">
-            @foreach (var team in Model.AvailableTeams.OrderBy(t => t.Name))
+            @if (Model.AvailableTeams.Count == 0)
             {
-                <li class="list-group-item d-flex justify-content-between">
-                    @team.Name
-                    <a class="nav-link text-dark" asp-controller="Tournament" asp-action="AddTeam" asp-route-teamId="@team.Id"
-                       asp-route-tournamentId="@Model.Tournament.Id">+</a>
-                </li>
+                <div class="grey-text" style="margin-left:30px;">
+                    <p>No Available teams in the tournament</p>
+                </div>
             }
+            else
+            {
+                @foreach (var team in Model.AvailableTeams.OrderBy(t => t.Name))
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        @team.Name
+                        <a class="btn btn-dark fixed-width-btn d-flex justify-content-center align-items-center" asp-controller="Tournament" asp-action="AddTeam" asp-route-teamId="@team.Id"
+                           asp-route-tournamentId="@Model.Tournament.Id"><span class="material-symbols-outlined  small-icon-material-symbols-outlined" style="margin: 0; padding: 0;">add</span></a>
+                    </li>
+                }
+            }
+            
         </ul>
-        <h2>You can create more teams here</h2><a class="nav-link text-dark" asp-controller="Team" asp-action="Create">Create</a>
+        <div style="margin-top:50px">
+            <h2>You can create more teams here</h2>
+            <a class="btn btn-dark fixed-width-btn center-content" asp-controller="Team" asp-action="Create">Create</a>
+        </div>
+       
+    </div>
+    <div style="flex: 1; margin-left: 40px;">
+        <h2>Tournament Teams</h2>
+        <ul class="list-group">
+            @if (Model.TournamentTeams.Count == 0)
+            {
+                <div class="grey-text" style="margin-left:30px;">
+                    <p>No teams in the tournament</p>
+                </div>
+
+            }
+            else
+            {
+                @foreach (var team in Model.TournamentTeams.OrderBy(t => t.Name))
+                {
+
+
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        @team.Name
+                        <a class="btn btn-dark fixed-width-btn d-flex justify-content-center align-items-center" asp-controller="Tournament" asp-action="RemoveTeam" asp-route-teamId="@team.Id"
+                           asp-route-tournamentId="@Model.Tournament.Id">
+                            <span class="material-symbols-outlined  small-icon-material-symbols-outlined" style="margin: 0; padding: 0;">remove </span>
+                        </a>
+                    </li>
+                }
+            }
+
+        </ul>
     </div>
 </div>

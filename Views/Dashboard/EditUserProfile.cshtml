@@ -3,68 +3,13 @@
 @model EditUserDashboardViewModel
 @using Microsoft.AspNetCore.Identity
 
-﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Dashboard</title>
-    <!--MY CSSS-->
-    <link rel="stylesheet" href="css/site.css" />
-    <!--Fonts-->
-    <!--Holtwood One SC-->
-    <link href='https://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
-    <!--Abel-->
-    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-    <!-- Roboto Condensed-->
-    <link href='https://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
-
-    <!--TrophyIcon-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-</head>
-<body>
-    <div class="grid-container">
-
-        <!--SideBar-->
-        <aside id="sidebar">
-            <div class="sidebar-title">
-                <div class="sidebar-brand">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">dashboard</a>  <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournament Manager</a>
-                </div>
-                <span class="material-symbols-outlined" oncklick="closeSidebar()">close</span>
-            </div>
-            <ul class="sidebar-list">
-                <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Tournament" asp-action="Index">rewarded_ads</a>   <a class="nav-link text-light" asp-area="" asp-controller="Tournament" asp-action="Index">Tournaments</a>
-                </li>
-                <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Team" asp-action="Index">team_dashboard</a> <a class="nav-link text-light" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
-                </li>
-
-                <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="User" asp-action="Index">group</a> <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                </li>
-
-            </ul>
-            <ul class="sidebar-list on-bottom-container">
-                <!-- Ustawienia Na Dole -->
-                <li class="sidebar-list-item">
-                    <a class="material-symbols-outlined" asp-area="" asp-controller="Dashboard" asp-action="Settings">settings</a> <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Settings">Settings</a>
-                </li>
-            </ul>
-        </aside>
-
-
-
-        <!--End Sidebar-->
-        <!--Main-->
-        <main class="main-container">
-            <div class="main-title">
+    Layout = "SidebarLayout";
+}  
+            <div class="main-title">    
                 <h2>Edit Profile </h2>
             </div>
 
@@ -99,14 +44,4 @@
 
 
 
-    </div>
-    </main>
-
-    <!--End Main-->
-    </div>
-
-    <!-- MY JS -->
-    <script src="js/site.js"></script>
-</body>
-</html>
 

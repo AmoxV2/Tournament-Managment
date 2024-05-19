@@ -34,39 +34,39 @@
                             <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
                             <p class="text-white-50 mb-5">Please enter your Data!</p>
                             
-                            
-                            <form asp-action="Index">
+                     
+                            <form asp-action="Index" style="margin-top:-20px">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="form-group">
-                                    <label asp-for="EmailAddress" class="control-label"></label>
-                                    <input asp-for="EmailAddress" class="form-control" />
+                                    <label asp-for="EmailAddress" class="control-label" style="margin-bottom:3px"></label>
+                                    <input asp-for="EmailAddress" class="form-control" style="margin-bottom:15px" />
                                     <span asp-validation-for="EmailAddress" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="UserName" class="control-label"></label>
-                                    <input asp-for="UserName" class="form-control" />
+                                    <label asp-for="UserName" class="control-label" style="margin-bottom:3px"></label>
+                                    <input asp-for="UserName" class="form-control" style="margin-bottom:15px" />
                                     <span asp-validation-for="UserName" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Password" class="control-label"></label>
-                                    <input asp-for="Password" class="form-control" />
+                                    <label asp-for="Password" class="control-label" style="margin-bottom:3px"></label>
+                                    <input asp-for="Password" class="form-control" style="margin-bottom:15px" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label asp-for="ConfirmPassword" class="control-label"></label>
-                                    <input asp-for="ConfirmPassword" class="form-control" />
+                                    <label asp-for="ConfirmPassword" class="control-label" style="margin-bottom:3px"></label>
+                                    <input asp-for="ConfirmPassword" class="form-control" style="margin-bottom:15px" />
                                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                 </div>
-                                <div class="small">
-                                Password need to have at least 8 symbols, have uppercase letter, have lowercase letter, have digit and have special symbol.
+                                <div class="small grey-text" style="margin-top:5px">
+                                    <p>Password need to have at least 8 symbols, have uppercase letter, have lowercase letter, have digit and have special symbol.</p>
                                 </div>
                
                                 <div class="form-group">
                                     <input class="btn btn-outline-success float-right" type="submit" value="Sign up" />
-                                    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+                                    @*<a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>*@
                                 </div>
                             </form>
                             @* <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>*@
@@ -81,13 +81,12 @@
                             *@
 
                         </div>
-                        You have an account?
-                        <a class="btn btn-outline-secondary" asp-controller="Login" asp-action="Index">Login</a>
-                    </div>
-                        <div>
-                         
-
-                    </div>
+                        <div style="margin-top:-50px">
+                            <p>You have an account?</p>
+                            <a class="btn btn-outline-secondary" asp-controller="Login" asp-action="Index">Login</a>
+                        </div>
+                       
+                    </div>  
                 </div>
             </div>
         </div>

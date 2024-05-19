@@ -24,26 +24,29 @@
                     </div>
                 }
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
+                    <div class="card-body p-5 text-center h-100">
 
-                        <div class="mb-md-5 mt-md-4 pb-5">
+                        <div class="mb-md-5 mt-md-4 pb-5 h-100">
 
-                            <form asp-action="Index">
+                            <h2 class="fw-bold mb-2 text-uppercase">Log In</h2>
+                            <p class="text-white-50 mb-5">Please enter your Data!</p>
+
+                            <form asp-action="Index" class="h-100">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="fw-bold mb-2 text-uppercase">
-                                    <label asp-for="EmailAddress" class="control-label"></label>
+                                    <label asp-for="EmailAddress" class="control-label" style="margin-bottom:10px"></label>
                                     <input asp-for="EmailAddress" class="form-control">
                                     <span asp-validation-for="EmailAddress" class="text-danger"></span>
                                 </div>
                                 <br />
                                 <div class="fw-bold mb-2 text-uppercase">
-                                    <label asp-for="Password" class="control-label"></label>
+                                    <label asp-for="Password" class="control-label" style="margin-bottom:10px"></label>
                                     <input asp-for="Password" class="form-control" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
-                                <div class="fw-bold mb-2 text-uppercase">
+                                <div class="fw-bold mb-2 text-uppercase" style="margin-top:30px">
                                     <input class="btn btn-outline-success float right" type="submit" value="Log in" />
-                                    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+                                    @*<a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>*@
                                 </div>
                             </form>
 
@@ -56,12 +59,14 @@
                             <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
                             <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                             </div>*@
-
+                            <div style="margin-top:40px">
+                                <p>Don't have an account?</p>
+                                <a class="btn btn-outline-secondary" asp-controller="Register" asp-action="Index">Register</a>
+                            </div>
                         </div>
                         
-                        Don't have an account<a class="btn btn-outline-secondary" asp-controller="Register" asp-action="Index">Register</a>
-                        <div>
-                        </div>
+                       
+                        
 
                     </div>
                 </div>
