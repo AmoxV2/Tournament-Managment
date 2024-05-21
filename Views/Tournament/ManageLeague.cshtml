@@ -1,0 +1,54 @@
+﻿@using WWW_APP_PROJECT.ViewModels
+
+@model ManageLeagueViewModel
+@{
+    Layout = "SidebarLayout";
+}
+<div class="main-title">
+    <h2>Manage Panel for tournament @Model.Tournament.Name</h2>
+    
+</div>
+
+
+<div style="display: flex; justify-content: space-between;  ">
+
+
+
+    <div style="flex: 1; margin-right: 10px;">
+        <h2>Upcoming Matches</h2>
+        <ul class="list-group">
+           
+                @foreach (var match in Model.Matches)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                    @match.HostTeam.Name vs @match.GuestTeam.Name
+                    </li>
+                }
+           
+
+        </ul>
+        <div style="margin-top:50px">
+            <h2>You can create more teams here</h2>
+            <a class="btn btn-dark fixed-width-btn center-content" asp-controller="Team" asp-action="Create">Create</a>
+        </div>
+
+    </div>
+    <div style="flex: 1; margin-left: 40px;">
+        <h2>Tournament Teams</h2>
+        <ul class="list-group">
+            
+                @foreach (var team in Model.Teams.OrderBy(t => t.Name))
+                {
+
+
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        @team.Name @Model.TeamScores[team.Id].Score
+                        
+                    </li>
+                }
+            
+
+        </ul>
+    </div>
+</div>

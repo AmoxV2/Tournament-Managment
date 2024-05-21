@@ -3,6 +3,6 @@
     public enum TournamentType
     {
         Knockout,
-        league,
+        League,
     }
 }

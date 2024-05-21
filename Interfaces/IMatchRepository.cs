@@ -6,7 +6,6 @@ namespace WWW_APP_PROJECT.Interfaces
     {
         bool Add(TeamMatch match);
         bool Save();
-       
-
+        Task<List<TeamMatch>> GetMatchesByTournament(int tournamentId);
     }
 }

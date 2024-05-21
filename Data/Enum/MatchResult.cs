@@ -5,6 +5,6 @@
         HostWin,
         GuestWin,
         Draw,
-        Unplayed,
+        UnPlayed,
     }
 }

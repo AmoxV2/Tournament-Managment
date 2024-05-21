@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WWW_APP_PROJECT.Data;
+using WWW_APP_PROJECT.Data.Enum;
 using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
+using WWW_APP_PROJECT.Services;
 using WWW_APP_PROJECT.ViewModels;
 
 namespace WWW_APP_PROJECT.Controllers
@@ -12,14 +15,18 @@ namespace WWW_APP_PROJECT.Controllers
         private readonly ITournamentRepository _tournamentRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamToTournamentRepository _teamToTournamentRepository;
+        private readonly IMatchRepository _matchRepository;
+        
         public TournamentController(IPhotoService photoService, IHttpContextAccessor httpContextAccessor, ITournamentRepository tournamentRepository,
-            ITeamRepository teamRepository, ITeamToTournamentRepository teamToTournamentRepository)
+            ITeamRepository teamRepository, ITeamToTournamentRepository teamToTournamentRepository, IMatchRepository matchRepository)
         {
             this._photoService = photoService;
             this._httpContextAccessor = httpContextAccessor;
             _tournamentRepository = tournamentRepository;
             _teamRepository = teamRepository;
             _teamToTournamentRepository = teamToTournamentRepository;
+            _matchRepository = matchRepository;
+            
         }
         public async Task<IActionResult> Index()
         {
@@ -104,11 +111,59 @@ namespace WWW_APP_PROJECT.Controllers
             {
                 return RedirectToAction("Start", new { id = id }); ;
             }
+            else
+            {
+                return RedirectToAction("ManageLeague", new { id = id });
+            }
             return View();
+        }
+        public async Task<IActionResult> ManageLeague(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            var matches = await _matchRepository.GetMatchesByTournament(id);
+            var tournamentTeams = await _tournamentRepository.GetTeams(id);
+           
+            Dictionary<int, TeamScore> teamScores = new Dictionary<int, TeamScore>();
+            foreach (var team in tournamentTeams)
+            {
+                teamScores.Add(team.Id, new TeamScore());
+            }
+            foreach (var match in matches)
+            {
+                if (match.MatchResult == MatchResult.HostWin)
+                {
+                    teamScores[match.HostTeamId].Score += 3;
+                    teamScores[match.HostTeamId].Wins += 1;
+                    teamScores[match.GuestTeamId].Loses += 1;
+                }
+                else if (match.MatchResult == MatchResult.GuestWin)
+                {
+                    teamScores[match.GuestTeamId].Score += 3;
+                    teamScores[match.GuestTeamId].Wins += 1;
+                    teamScores[match.HostTeamId].Loses += 1;
+                }
+                else if (match.MatchResult == MatchResult.Draw)
+                {
+                    teamScores[match.HostTeamId].Score += 1;
+                    teamScores[match.GuestTeamId].Score += 1;
+                    teamScores[match.HostTeamId].Draws += 1;
+                    teamScores[match.GuestTeamId].Draws += 1;
+                }
+                
+            }
+            var manageLeagueVM = new ManageLeagueViewModel
+            {
+                Tournament = tournament,
+                Matches = matches,
+                Teams = tournamentTeams,
+                TeamScores = teamScores
+            };
+            return View(manageLeagueVM);
         }
         public async Task<IActionResult> Start(int id)
         {
             var tournamentTeams = await _tournamentRepository.GetTeams(id);
+            ViewData["TournamentId"] = id;
             return View(tournamentTeams);
         }
         public async Task<IActionResult> AddTeams(int id)
@@ -143,6 +198,17 @@ namespace WWW_APP_PROJECT.Controllers
             var teamToTournament = _teamToTournamentRepository.GetById(teamId, tournamentId);
             _teamToTournamentRepository.Delete(teamToTournament);
             return RedirectToAction("Manage", new { id = tournamentId });
+        }
+        public async Task<IActionResult> GenerateMatches(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            var teams = await _tournamentRepository.GetTeams(id);
+            var matches = TournamentService.GenerateMatches(tournament,teams);
+            foreach (var match in matches)
+            {
+                _matchRepository.Add(match);
+            }
+            return RedirectToAction("Manage", new { id = id });
         }
     }
 }
