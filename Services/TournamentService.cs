@@ -45,6 +45,32 @@ namespace WWW_APP_PROJECT.Services
             }
             return matches;
         }
+        public static void CalcTeamsScores(Dictionary<int, TeamScore> teamScores,List<TeamMatch> matches )
+        {
+            foreach (var match in matches)
+            {
+                if (match.MatchResult == MatchResult.HostWin)
+                {
+                    teamScores[match.HostTeamId].Score += 3;
+                    teamScores[match.HostTeamId].Wins += 1;
+                    teamScores[match.GuestTeamId].Loses += 1;
+                }
+                else if (match.MatchResult == MatchResult.GuestWin)
+                {
+                    teamScores[match.GuestTeamId].Score += 3;
+                    teamScores[match.GuestTeamId].Wins += 1;
+                    teamScores[match.HostTeamId].Loses += 1;
+                }
+                else if (match.MatchResult == MatchResult.Draw)
+                {
+                    teamScores[match.HostTeamId].Score += 1;
+                    teamScores[match.GuestTeamId].Score += 1;
+                    teamScores[match.HostTeamId].Draws += 1;
+                    teamScores[match.GuestTeamId].Draws += 1;
+                }
+
+            }
+        }
 
 
     }

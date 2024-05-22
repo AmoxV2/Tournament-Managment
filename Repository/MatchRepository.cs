@@ -29,5 +29,14 @@ namespace WWW_APP_PROJECT.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+        public bool Update(TeamMatch match)
+        {
+            _context.Update(match);
+            return Save();
+        }
+        public async Task<TeamMatch> GetMatchById(int id)
+        {
+            return await _context.TeamMatches.AsNoTracking().Include(h=>h.HostTeam).Include(g=>g.GuestTeam).FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }

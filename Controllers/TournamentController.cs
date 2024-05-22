@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using WWW_APP_PROJECT.Data;
 using WWW_APP_PROJECT.Data.Enum;
 using WWW_APP_PROJECT.Interfaces;
@@ -128,29 +129,7 @@ namespace WWW_APP_PROJECT.Controllers
             {
                 teamScores.Add(team.Id, new TeamScore());
             }
-            foreach (var match in matches)
-            {
-                if (match.MatchResult == MatchResult.HostWin)
-                {
-                    teamScores[match.HostTeamId].Score += 3;
-                    teamScores[match.HostTeamId].Wins += 1;
-                    teamScores[match.GuestTeamId].Loses += 1;
-                }
-                else if (match.MatchResult == MatchResult.GuestWin)
-                {
-                    teamScores[match.GuestTeamId].Score += 3;
-                    teamScores[match.GuestTeamId].Wins += 1;
-                    teamScores[match.HostTeamId].Loses += 1;
-                }
-                else if (match.MatchResult == MatchResult.Draw)
-                {
-                    teamScores[match.HostTeamId].Score += 1;
-                    teamScores[match.GuestTeamId].Score += 1;
-                    teamScores[match.HostTeamId].Draws += 1;
-                    teamScores[match.GuestTeamId].Draws += 1;
-                }
-                
-            }
+            TournamentService.CalcTeamsScores(teamScores, matches);
             var manageLeagueVM = new ManageLeagueViewModel
             {
                 Tournament = tournament,
