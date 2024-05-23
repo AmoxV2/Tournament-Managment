@@ -112,6 +112,10 @@ namespace WWW_APP_PROJECT.Controllers
             {
                 return RedirectToAction("Start", new { id = id }); ;
             }
+            else if(tournament.WinnerTeamId!=null)
+            {
+                return RedirectToAction("LeagueResults", new { id = id });
+            }
             else
             {
                 return RedirectToAction("ManageLeague", new { id = id });
@@ -123,21 +127,85 @@ namespace WWW_APP_PROJECT.Controllers
             var tournament = await _tournamentRepository.GetByIdAsync(id);
             var matches = await _matchRepository.GetMatchesByTournament(id);
             var tournamentTeams = await _tournamentRepository.GetTeams(id);
-           
+            bool isFinished = true;
+
+            //chceck if all matches are played
+            foreach(var match in matches)
+            {
+                if (match.MatchResult == MatchResult.UnPlayed)
+                {
+                    isFinished = false;
+                    break;
+                }
+            }
+            if(isFinished)
+            {
+                return RedirectToAction("LeagueResults", new { id = id });
+            }
+            
             Dictionary<int, TeamScore> teamScores = new Dictionary<int, TeamScore>();
             foreach (var team in tournamentTeams)
             {
                 teamScores.Add(team.Id, new TeamScore());
             }
             TournamentService.CalcTeamsScores(teamScores, matches);
+            List<TeamScoreViewModel> results = new List<TeamScoreViewModel>();
+            foreach (var team in tournamentTeams)
+            {
+                results.Add(new TeamScoreViewModel
+                {
+                    team = team,
+                    teamScore = teamScores[team.Id]
+                });
+            }
+            results.Sort((x, y) => y.teamScore.Score.CompareTo(x.teamScore.Score));
+
             var manageLeagueVM = new ManageLeagueViewModel
             {
                 Tournament = tournament,
                 Matches = matches,
-                Teams = tournamentTeams,
-                TeamScores = teamScores
+                TeamScores = results
             };
             return View(manageLeagueVM);
+        }
+        public async Task<IActionResult> LeagueResults(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            var matches = await _matchRepository.GetMatchesByTournament(id);
+            var tournamentTeams = await _tournamentRepository.GetTeams(id);
+
+            Dictionary<int, TeamScore> teamScores = new Dictionary<int, TeamScore>();
+            foreach (var team in tournamentTeams)
+            {
+                teamScores.Add(team.Id, new TeamScore());
+            }
+            TournamentService.CalcTeamsScores(teamScores, matches);
+            if (tournament.WinnerTeamId == null)
+            {
+                int bestscore = -1;
+                foreach(Team team in tournamentTeams)
+                {
+                    if (teamScores[team.Id].Score > bestscore)
+                    {
+                        bestscore = teamScores[team.Id].Score;
+                        tournament.WinnerTeamId = team.Id;
+                    }
+                }
+                _tournamentRepository.Update(tournament);
+            }
+            List<TeamScoreViewModel> results = new List<TeamScoreViewModel>();
+            foreach (var team in tournamentTeams)
+            {
+                results.Add(new TeamScoreViewModel
+                {
+                    team = team,
+                    teamScore = teamScores[team.Id]
+                });
+            }
+            results.Sort((x, y) => y.teamScore.Score.CompareTo(x.teamScore.Score));
+            
+            
+            return View(results);
         }
         public async Task<IActionResult> Start(int id)
         {

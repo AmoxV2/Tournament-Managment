@@ -26,6 +26,7 @@
                                     <img class="card-img-top card-img-top margin-top" src="@item.ImageUrl" alt="Card image cap">
                                     <p class="card-text">Name: @item.Name</p>
                                     <p class="card-text">Descritpion: @item.Description</p>
+                                     <p class="card-text">Sport: @item.TeamSportDiscipline</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a type="btn btn-success" asp-controller="Tournament" asp-action="Manage" asp-route-id="@item.Id"

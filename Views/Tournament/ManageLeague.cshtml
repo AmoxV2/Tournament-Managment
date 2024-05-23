@@ -64,13 +64,13 @@
         <h2>Scoreboard</h2>
         <ul class="list-group">
             
-                @foreach (var team in Model.Teams.OrderBy(t => t.Name))
+                @foreach (var teamScore in Model.TeamScores)
                 {
 
 
 
                     <li class="list-group-item d-flex justify-content-between">
-                        @team.Name @Model.TeamScores[team.Id].Score
+                    @teamScore.team.Name @teamScore.teamScore.Score
                         
                     </li>
                 }

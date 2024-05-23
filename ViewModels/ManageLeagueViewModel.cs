@@ -5,9 +5,9 @@ namespace WWW_APP_PROJECT.ViewModels
 {
     public class ManageLeagueViewModel
     {
-        public List<Team> Teams { get; set; }
+       
         public List<TeamMatch> Matches { get; set; }
         public TeamTournament Tournament { get; set; }
-        public Dictionary<int, TeamScore> TeamScores { get; set; }
+        public List<TeamScoreViewModel> TeamScores { get; set; }
     }
 }
