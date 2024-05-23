@@ -24,22 +24,27 @@ namespace WWW_APP_PROJECT.Controllers
             curMatch.HostScore = match.HostScore;
             curMatch.GuestScore = match.GuestScore;
             curMatch.Date = match.Date;
-            if (curMatch.HostScore > curMatch.GuestScore)
+            if (match.HostScore >= 0 && match.GuestScore >= 0)
             {
-                curMatch.MatchResult = Data.Enum.MatchResult.HostWin;
-            }
-            else if (curMatch.HostScore < curMatch.GuestScore)
-            {
-                curMatch.MatchResult = Data.Enum.MatchResult.GuestWin;
-            }
-            else
-            {
-                curMatch.MatchResult = Data.Enum.MatchResult.Draw;
-            }
+                if (curMatch.HostScore > curMatch.GuestScore)
+                {
+                    curMatch.MatchResult = Data.Enum.MatchResult.HostWin;
+                }
+                else if (curMatch.HostScore < curMatch.GuestScore)
+                {
+                    curMatch.MatchResult = Data.Enum.MatchResult.GuestWin;
+                }
+                else
+                {
+                    curMatch.MatchResult = Data.Enum.MatchResult.Draw;
+                }
 
 
-            if (_matchRepository.Update(curMatch))
-                return RedirectToAction("Manage", "Tournament", new { id = curMatch.TeamTournamentId });
+                if (_matchRepository.Update(curMatch))
+                    return RedirectToAction("Manage", "Tournament", new { id = curMatch.TeamTournamentId });
+            }
+
+           
 
             return View(curMatch);
         }
