@@ -35,6 +35,7 @@ namespace WWW_APP_PROJECT.Controllers
         public async Task<IActionResult> Index()
         {
             List<TeamTournament> tournaments = (List<TeamTournament>)await _tournamentRepository.GetUserTournaments();
+            tournaments.Reverse();
             return View(tournaments);
             
         }
@@ -96,9 +97,9 @@ namespace WWW_APP_PROJECT.Controllers
                 AppUserId = tournamentVM.AppUserId
             };
             _tournamentRepository.Add(tournament);
-            return View(tournamentVM);
+            return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Manage(int id)
+            public async Task<IActionResult> Manage(int id)
         {
             var torunamentTeams = await _tournamentRepository.GetTeams(id);
             var tournament = await _tournamentRepository.GetByIdAsync(id);
@@ -112,13 +113,63 @@ namespace WWW_APP_PROJECT.Controllers
             }
             else if(tournament.WinnerTeamId!=null)
             {
-                return RedirectToAction("LeagueResults", new { id = id });
+                if (tournament.TournamentType == TournamentType.League)
+                {
+                    return RedirectToAction("LeagueResults", new { id = id });
+                }
+                else
+                {
+                    return RedirectToAction("KnockoutResults", new { id = id });
+                }
             }
             else
             {
-                return RedirectToAction("ManageLeague", new { id = id });
+                if (tournament.TournamentType == TournamentType.League)
+                {
+                    return RedirectToAction("ManageLeague", new { id = id });
+                }
+                else
+                {
+                    return RedirectToAction("ManageKnockout", new { id = id });
+                }
+                
             }
-            return View();
+            
+        }
+        public async Task<IActionResult> ManageKnockout(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            var matches = await _matchRepository.GetMatchesByTournament(id);
+            var tournamentTeams = await _tournamentRepository.GetTeams(id);
+            var roundsCount = (int)Math.Log2(tournamentTeams.Count);
+            List<List<TeamMatch>> rounds = new List<List<TeamMatch>>();
+            for (int i =0; i<roundsCount; i++)
+            {
+                rounds.Add(new List<TeamMatch>());
+            }
+            foreach (var match in matches)
+            {
+                rounds[match.Stage - 1].Add(match);
+            }
+            Tuple<bool,int> currentRound = TournamentService.GetRound(rounds);
+            if (currentRound.Item1==true && currentRound.Item2<roundsCount)
+            {
+                List<Team> teamsForNextRound = TournamentService.GetTeamsForNextRound(rounds[currentRound.Item2-1]);
+                List<TeamMatch> nextRound = TournamentService.GenerateKnockoutMatches(tournament, teamsForNextRound, currentRound.Item2 + 1);
+
+                foreach (var match in nextRound)
+                {
+                    _matchRepository.Add(match);
+                    rounds[currentRound.Item2].Add(match);
+                }
+            }
+            var knockoutVM = new ManageKnockoutViewModel
+            {
+                Rounds = rounds,
+                Tournament = tournament
+            };
+
+            return View(knockoutVM);
         }
         public async Task<IActionResult> ManageLeague(int id)
         {

@@ -1,0 +1,50 @@
+﻿@using WWW_APP_PROJECT.Data.Enum
+@using WWW_APP_PROJECT.ViewModels
+
+@model ManageKnockoutViewModel
+@{
+    Layout = "SidebarLayout";
+}
+<div class="main-title">
+    <h2>Manage Panel for tournament @Model.Tournament.Name</h2>
+
+</div>
+
+
+<div style="display: flex; justify-content: space-between;  ">
+
+
+    @for (int i = 1; i <= Model.Rounds.Count;i++){ 
+    <div style="flex: 1; margin-right: 10px;">
+        <h2>1 Round</h2>
+        <ul class="list-group">
+
+            @foreach (var match in Model.Rounds[i-1])
+            {
+                @if (match.MatchResult == MatchResult.UnPlayed)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        @match.HostTeam.Name vs @match.GuestTeam.Name
+                        <a class="btn btn-dark" asp-controller="Match" asp-action="Edit" asp-route-Id="@match.Id">Provide score</a>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            @match.HostTeam.Name vs @match.GuestTeam.Name @match.HostScore : @match.GuestScore
+                            <a class="btn btn-dark" asp-controller="Match" asp-action="Edit" asp-route-Id="@match.Id">Provide score</a>
+
+                        </li>
+                    }
+                }
+
+
+        </ul>
+
+
+    </div>
+    }
+    
+   
+</div>
