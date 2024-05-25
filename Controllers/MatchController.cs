@@ -48,5 +48,37 @@ namespace WWW_APP_PROJECT.Controllers
 
             return View(curMatch);
         }
+        public async Task<IActionResult> EditKnockout(int id)
+        {
+            var match = await _matchRepository.GetMatchById(id);
+            return View(match);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditKnockout(TeamMatch match)
+        {
+
+            var curMatch = await _matchRepository.GetMatchById(match.Id);
+            curMatch.HostScore = match.HostScore;
+            curMatch.GuestScore = match.GuestScore;
+            curMatch.Date = match.Date;
+            if (match.HostScore >= 0 && match.GuestScore >= 0 && match.GuestScore!=match.HostScore)
+            {
+                if (curMatch.HostScore > curMatch.GuestScore)
+                {
+                    curMatch.MatchResult = Data.Enum.MatchResult.HostWin;
+                }
+                else
+                {
+                    curMatch.MatchResult = Data.Enum.MatchResult.GuestWin;
+                }
+               
+                if (_matchRepository.Update(curMatch))
+                    return RedirectToAction("Manage", "Tournament", new { id = curMatch.TeamTournamentId });
+            }
+
+            TempData["Error"]= "Invalid Score";
+
+            return View(curMatch);
+        }
     }
 }

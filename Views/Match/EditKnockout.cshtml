@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "SidebarLayout";
+}
+@model TeamMatch;
+@if (TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"]</span>
+    </div>
+}
+
+<form method="post" asp-action="EditKnockout">
+    <input type="hidden" id="Id" name="Id" asp-for="Id" />
+    <div class="form-group form-margin">
+        <label asp-for="HostScore">@Model.HostTeam.Name</label>
+        <input asp-for="HostScore" class="form-control form-bg grey-text" placeholder="HostScore">
+        <span asp-validation-for="HostScore" class="text-danger"></span>
+    </div>
+    <div class="form-group form-margin">
+        <label asp-for="GuestScore">@Model.GuestTeam.Name Score</label>
+        <input asp-for="GuestScore" class="form-control form-bg grey-text" placeholder="GuestScore">
+        <span asp-validation-for="GuestScore" class="text-danger"></span>
+    </div>
+    <div class="form-group form-margin ">
+        <label asp-for="Date">Match Date</label>
+        <input asp-for="Date" class="form-control form-bg grey-text" type="date">
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group center-content">
+        <button type="submit" class="btn btn-dark fixed-width-btn">Edit</button>
+    </div>
+
+</form>

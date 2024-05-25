@@ -25,7 +25,7 @@
                 {
                     <li class="list-group-item d-flex justify-content-between">
                         @match.HostTeam.Name vs @match.GuestTeam.Name
-                        <a class="btn btn-dark" asp-controller="Match" asp-action="Edit" asp-route-Id="@match.Id">Provide score</a>
+                        <a class="btn btn-dark" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">Provide score</a>
 
                         </li>
                     }
@@ -33,7 +33,7 @@
                     {
                         <li class="list-group-item d-flex justify-content-between">
                             @match.HostTeam.Name vs @match.GuestTeam.Name @match.HostScore : @match.GuestScore
-                            <a class="btn btn-dark" asp-controller="Match" asp-action="Edit" asp-route-Id="@match.Id">Provide score</a>
+                            
 
                         </li>
                     }
