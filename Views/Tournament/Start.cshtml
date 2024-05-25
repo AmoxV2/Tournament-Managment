@@ -7,25 +7,20 @@
 <div class="main-title">
     <h2>Competitors</h2>
 </div>
-<div style="display: flex;">
-    <div style="margin-right: 100px">
+
+<div style="display: flex; flex-direction: column; align-items: center;">
+    
         <h2>Tournament Teams</h2>
-        <ul class="list-group">
+    <ul class="list-group" style="width: 60%;">
             @foreach (var team in Model.OrderBy(t => t.Name))
             {
-
-
-
                 <li class="list-group-item d-flex justify-content-between">
                     @team.Name
-                    
                 </li>
             }
         </ul>
-    </div>
 
-    
+
+        <a class="margin btn btn-dark fixed-width-btn " asp-controller="Tournament" asp-action="GenerateMatches" asp-route-id=@ViewData["TournamentId"]>Generate</a>
         
-    </div>
-<h2>Generate Matches</h2><a class="nav-link text-light" asp-controller="Tournament" asp-action="GenerateMatches" asp-route-id=@ViewData["TournamentId"]>Generate</a>
 </div>
