@@ -1,0 +1,29 @@
+﻿@using WWW_APP_PROJECT.Data.Enum
+@using WWW_APP_PROJECT.ViewModels
+@model CreateShareViewModel
+@{
+    Layout = "SidebarLayout";
+}
+<div class="main-title">
+    <h2>Share tournament: @Model.tournamentName</h2>
+</div>
+
+<form method="post" asp-action="Create" >
+    <input type="hidden" id="tournamentId name="tournamentId" asp-for="tournamentId" />
+    <div class="form-group form-margin">
+        <div class="form-group form-margin ">
+            <label asp-for="ShareTrybe">Share Trybe</label>
+            <br />
+            <select asp-for="ShareTrybe" class="form-bg grey-text" asp-items="@Html.GetEnumSelectList<ShareTrybe>()">
+                <option>--Select--</option>
+            </select>
+            <span asp-validation-for="ShareTrybe" class="text-danger"></span>
+        </div>
+        <label asp-for="ShareUser">Share user username</label>
+        <input asp-for="ShareUser" class="form-control form-bg grey-text" placeholder="ShareUser">
+        <span asp-validation-for="ShareUser" class="text-danger"></span>
+    
+    <div class="form-group center-content">
+        <button type="submit" class="btn btn-dark fixed-width-btn">Submit</button>
+    </div>
+</form>

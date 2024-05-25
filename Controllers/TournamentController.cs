@@ -119,7 +119,7 @@ namespace WWW_APP_PROJECT.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("KnockoutResults", new { id = id });
+                    return RedirectToAction("ManageKnockout", new { id = id });
                 }
             }
             else
@@ -161,6 +161,21 @@ namespace WWW_APP_PROJECT.Controllers
                 {
                     _matchRepository.Add(match);
                     rounds[currentRound.Item2].Add(match);
+                }
+            }
+            else if(currentRound.Item1 == true && currentRound.Item2==roundsCount) 
+            {
+                if(tournament.WinnerTeamId==null)
+                {
+                    if (rounds[roundsCount - 1][0].MatchResult == MatchResult.HostWin)
+                    {
+                        tournament.WinnerTeamId = rounds[roundsCount - 1][0].HostTeamId;
+                    }
+                    else
+                    {
+                        tournament.WinnerTeamId = rounds[roundsCount - 1][0].GuestTeamId;
+                    }
+                    _tournamentRepository.Update(tournament);
                 }
             }
             var knockoutVM = new ManageKnockoutViewModel
@@ -305,5 +320,6 @@ namespace WWW_APP_PROJECT.Controllers
             }
             return RedirectToAction("Manage", new { id = id });
         }
+       
     }
 }
