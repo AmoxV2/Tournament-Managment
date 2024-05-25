@@ -7,7 +7,12 @@
 <div class="main-title">
     <h2>Share tournament: @Model.tournamentName</h2>
 </div>
-
+@if (TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"]</span>
+    </div>
+}
 <form method="post" asp-action="Create" >
     <input type="hidden" id="tournamentId name="tournamentId" asp-for="tournamentId" />
     <div class="form-group form-margin">
@@ -19,7 +24,7 @@
             </select>
             <span asp-validation-for="ShareTrybe" class="text-danger"></span>
         </div>
-        <label asp-for="ShareUser">Share user username</label>
+        <label asp-for="ShareUser">Share user mail</label>
         <input asp-for="ShareUser" class="form-control form-bg grey-text" placeholder="ShareUser">
         <span asp-validation-for="ShareUser" class="text-danger"></span>
     
