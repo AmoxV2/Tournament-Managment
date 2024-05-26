@@ -34,7 +34,8 @@ namespace WWW_APP_PROJECT.Controllers
             var newUser = new AppUser
             {
                 UserName = registerViewModel.UserName,
-                Email = registerViewModel.EmailAddress
+                Email = registerViewModel.EmailAddress,
+                ImageUrl = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
 

@@ -15,6 +15,12 @@ namespace WWW_APP_PROJECT.Repository
             this._context = context;
             this._httpContextAccessor = httpContextAccessor;
         }
+
+        public async Task<List<TeamTournament>> GetPublicTournaments()
+        {
+            return await _context.TeamTournaments.Where(t => t.IsPublic==true).ToListAsync();
+        }
+
         public async Task<AppUser> GetUserById(string id)
         {
             return await _context.Users.FindAsync(id);

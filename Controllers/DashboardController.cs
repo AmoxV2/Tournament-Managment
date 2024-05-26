@@ -28,14 +28,16 @@ namespace WWW_APP_PROJECT.Controllers
             user.LastName = editVM.LastName;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var tournaments = await _dashboardRepository.GetPublicTournaments();
+            return View(tournaments);
         }
         public IActionResult Settings()
         {
             return View();
         }
+        
         public async Task<IActionResult> EditUserProfile()
         {
             var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
