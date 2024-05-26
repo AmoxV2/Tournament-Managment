@@ -16,7 +16,12 @@
 <form method="post" asp-action="Create" >
     <input type="hidden" id="tournamentId name="tournamentId" asp-for="tournamentId" />
     <div class="form-group form-margin">
-        <div class="form-group form-margin ">
+        <div>
+        <label asp-for="ShareUser">Share user mail</label>
+        <input asp-for="ShareUser" class="form-control form-bg grey-text" placeholder="ShareUser">
+        <span asp-validation-for="ShareUser" class="text-danger"></span>
+        </div>
+        <div style="margin-top:10px">
             <label asp-for="ShareTrybe">Share Trybe</label>
             <br />
             <select asp-for="ShareTrybe" class="form-bg grey-text" asp-items="@Html.GetEnumSelectList<ShareTrybe>()">
@@ -24,9 +29,8 @@
             </select>
             <span asp-validation-for="ShareTrybe" class="text-danger"></span>
         </div>
-        <label asp-for="ShareUser">Share user mail</label>
-        <input asp-for="ShareUser" class="form-control form-bg grey-text" placeholder="ShareUser">
-        <span asp-validation-for="ShareUser" class="text-danger"></span>
+   </div>
+       
     
     <div class="form-group center-content">
         <button type="submit" class="btn btn-dark fixed-width-btn">Submit</button>
