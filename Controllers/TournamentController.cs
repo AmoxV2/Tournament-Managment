@@ -6,6 +6,7 @@ using WWW_APP_PROJECT.Data;
 using WWW_APP_PROJECT.Data.Enum;
 using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
+using WWW_APP_PROJECT.Repository;
 using WWW_APP_PROJECT.Services;
 using WWW_APP_PROJECT.ViewModels;
 using static System.Net.Mime.MediaTypeNames;
@@ -19,10 +20,11 @@ namespace WWW_APP_PROJECT.Controllers
         private readonly ITournamentRepository _tournamentRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamToTournamentRepository _teamToTournamentRepository;
+        private readonly IShareRepository _shareRepository;
         private readonly IMatchRepository _matchRepository;
         
         public TournamentController(IPhotoService photoService, IHttpContextAccessor httpContextAccessor, ITournamentRepository tournamentRepository,
-            ITeamRepository teamRepository, ITeamToTournamentRepository teamToTournamentRepository, IMatchRepository matchRepository)
+            ITeamRepository teamRepository, ITeamToTournamentRepository teamToTournamentRepository, IMatchRepository matchRepository, IShareRepository shareRepository)
         {
             this._photoService = photoService;
             this._httpContextAccessor = httpContextAccessor;
@@ -30,13 +32,25 @@ namespace WWW_APP_PROJECT.Controllers
             _teamRepository = teamRepository;
             _teamToTournamentRepository = teamToTournamentRepository;
             _matchRepository = matchRepository;
+            _shareRepository = shareRepository;
             
         }
         public async Task<IActionResult> Index()
         {
             List<TeamTournament> tournaments = (List<TeamTournament>)await _tournamentRepository.GetUserTournaments();
             tournaments.Reverse();
-            return View(tournaments);
+            var sharedTournaments = await _shareRepository.GetUserShares(_httpContextAccessor.HttpContext?.User.GetUserId());
+            List<Tuple<ShareTrybe, TeamTournament>> sharedTournamentsList = new List<Tuple<ShareTrybe, TeamTournament>>();
+            foreach(var share in sharedTournaments)
+            {
+                sharedTournamentsList.Add(new Tuple<ShareTrybe, TeamTournament>(share.ShareTrybe, await _tournamentRepository.GetByIdAsync((int)share.TeamTournamentId)));
+            }
+            var tournamentsVM = new TournamentsViewModel
+            {
+                MyTournaments = tournaments,
+                SharedTournaments = sharedTournamentsList
+            };
+            return View(tournamentsVM);
             
         }
         public IActionResult Create()
@@ -320,6 +334,66 @@ namespace WWW_APP_PROJECT.Controllers
             }
             return RedirectToAction("Manage", new { id = id });
         }
-       
+        public async Task<IActionResult> Detail(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            return View(tournament);
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            _tournamentRepository.Delete(tournament);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var tournament = await _tournamentRepository.GetByIdAsync(id);
+            var tournamentVM = new EditTournamentViewModel
+            {
+                Id = tournament.Id,
+                Name = tournament.Name,
+                Description = tournament.Description,
+                StartDate = tournament.StartDate,
+                EndDate = tournament.EndDate,
+                Address = tournament.Address,
+                IsPublic = tournament.IsPublic,
+                
+            };
+            return View(tournamentVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTournamentViewModel tournamentVm)
+        {
+            if (ModelState.IsValid)
+            {
+                var tournament = await _tournamentRepository.GetByIdAsync(tournamentVm.Id);
+
+                if (tournamentVm.Image != null)
+                {
+                    var result = await _photoService.AddPhotoAsync(tournamentVm.Image);
+                    tournament.ImageUrl = result.Url.ToString();
+                }
+
+               tournament.Name = tournamentVm.Name;
+                tournament.Description = tournamentVm.Description;
+                tournament.StartDate = tournamentVm.StartDate;
+                tournament.EndDate = tournamentVm.EndDate;
+                tournament.Address = tournamentVm.Address;
+                tournament.IsPublic = tournamentVm.IsPublic;
+
+
+                _tournamentRepository.Update(tournament);
+
+
+                
+                return RedirectToAction("Detail", "Tournament", new { id = tournament.Id });
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(tournamentVm);
+        }
     }
 }

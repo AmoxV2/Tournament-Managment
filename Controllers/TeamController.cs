@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using WWW_APP_PROJECT.Interfaces;
 using WWW_APP_PROJECT.Models;
 using WWW_APP_PROJECT.ViewModels;
@@ -38,14 +39,22 @@ namespace WWW_APP_PROJECT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _photoService.AddPhotoAsync(TeamVM.Image);
-
+                string imageUrl;
+                if (TeamVM.Image != null)
+                {
+                    var result = await _photoService.AddPhotoAsync(TeamVM.Image);
+                    imageUrl = result.Url.ToString();
+                }
+                else
+                {
+                    imageUrl= "https://img.redro.pl/plakaty/ikona-ludzi-ikona-grupy-ikona-zespolu-700-136664894.jpg";
+                }
                 var team = new Team
                 {
                    Name = TeamVM.Name,
                    TeamSportDiscipline = TeamVM.TeamSportDiscipline,
                    AppUserId = TeamVM.AppUserId,
-                   ImageUrl = result.Url.ToString(),
+                   ImageUrl = imageUrl,
 
 
                 };
@@ -63,6 +72,36 @@ namespace WWW_APP_PROJECT.Controllers
             var team = await _teamRepository.GetByIdAsync(id);
             
             return View(team);
+        }
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var team = await _teamRepository.GetByIdAsync(Id);
+            var teamVM = new EditTeamViewModel()
+            {
+                Id= team.Id,
+                Name = team.Name,
+               
+            };
+            return View(teamVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTeamViewModel teamVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var team = await _teamRepository.GetByIdAsync(teamVM.Id);
+                
+                if (teamVM.Image != null)
+                {
+                    var result = await _photoService.AddPhotoAsync(teamVM.Image);
+                    team.ImageUrl = result.Url.ToString();
+                }
+               
+                team.Name = teamVM.Name;
+                _teamRepository.Update(team);
+                return RedirectToAction("Index");
+            }
+            return View(teamVM);
         }
         
     }

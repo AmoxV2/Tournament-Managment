@@ -24,12 +24,28 @@ namespace WWW_APP_PROJECT.Repository
 
         public bool Delete(TeamTournament tournament)
         {
-            throw new NotImplementedException();
+            var teamToTournaments = _context.TeamToTournaments.Where(c => c.TeamTournamentId == tournament.Id);
+            var teamMatches = _context.TeamMatches.Where(c => c.TeamTournamentId == tournament.Id);
+            var sharedTournaments = _context.SharedTournaments.Where(c => c.TeamTournamentId == tournament.Id);
+            foreach (var item in teamToTournaments)
+            {
+                _context.Remove(item);
+            }
+            foreach (var item in teamMatches)
+            {
+                _context.Remove(item);
+            }
+            foreach (var item in sharedTournaments)
+            {
+                _context.Remove(item);
+            }
+            _context.Remove(tournament);
+            return Save();
         }
 
         public async Task<TeamTournament> GetByIdAsync(int id)
         {
-            return await _context.TeamTournaments.FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.TeamTournaments.Include(a=>a.WinnerTeam).Include(a=>a.Address).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<List<Team>> GetTeams(int tournamentId)

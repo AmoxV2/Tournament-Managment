@@ -1,4 +1,6 @@
-﻿@model List<TeamTournament>
+﻿ @using WWW_APP_PROJECT.Data.Enum
+@using WWW_APP_PROJECT.ViewModels
+@model TournamentsViewModel
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,19 +8,41 @@
     Layout = "SidebarLayout";
 
 }
-<div class="main-title">
-    <h2>Tournaments</h2>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <a class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Tournament" asp-action="Create">Create Tournament</a>
-    }
-</div>
-
-
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
+@if (Model.MyTournaments.Count != 0)
+{
+    <div class="main-title">
+        <h2>My Tournaments</h2>
+        @if (User.Identity.IsAuthenticated)
         {
+            <a class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Tournament" asp-action="Create">Create Tournament</a>
+        }
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.MyTournaments)
+            {
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <img class="card-img-top card-img-top margin-top" src="@item.ImageUrl" alt="Card image cap">
+                            <p class="card-text">Name: @item.Name</p>
+                            <p class="card-text">Descritpion: @item.Description</p>
+                            <p class="card-text">Sport: @item.TeamSportDiscipline</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="btn btn-success" asp-controller="Tournament" asp-action="Manage" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">Manage</a>
+                                    <a type="btn btn-success" asp-controller="Tournament" asp-action="Detail" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">Detail</a>
+                                    <a type="btn btn-success" asp-controller="Share" asp-action="Create" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">Share</a>
+
+                                    <a type="btn btn-success" asp-controller="Tournament" asp-action="Delete" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">Delete</a>
+                                </div>
 
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
@@ -44,14 +68,56 @@
                        
                     </div>
                 </div>
-            </div>
 
-        }
+            }
 
+        </div>
     </div>
+}
+@if (Model.SharedTournaments.Count != 0)
+{
+    <div class="main-title">
+        <h2>Shared Tournaments</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.SharedTournaments)
+            {
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <img class="card-img-top card-img-top margin-top" src="@item.Item2.ImageUrl" alt="Card image cap">
+                            <p class="card-text">Name: @item.Item2.Name</p>
+                            <p class="card-text">Descritpion: @item.Item2.Description</p>
+                            <p class="card-text">Sport: @item.Item2.TeamSportDiscipline</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    @if (item.Item1 == ShareTrybe.Edit)
+                                    {
+                                        <a type="btn btn-success" asp-controller="Tournament" asp-action="Manage" asp-route-id="@item.Item2.Id"
+                                           class="btn btn-sm btn-outline-secondary">Manage</a>
+                                        <a type="btn btn-success" asp-controller="Tournament" asp-action="Details" asp-route-id="@item.Item2.Id"
+                                           class="btn btn-sm btn-outline-secondary">Details</a>
+                                    }
+                                    else
+                                    {
+                                        <a type="btn btn-success" asp-controller="Tournament" asp-action="Details" asp-route-id="@item.Item2.Id"
+                                           class="btn btn-sm btn-outline-secondary">Details</a>
+                                    }
+                                </div>
+                                <small class="text-muted">Type: @item.Item2.TournamentType</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+}
 </div>
-
-
 
 
 

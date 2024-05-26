@@ -1,0 +1,44 @@
+﻿@model TeamTournament;
+@{
+    Layout = "SidebarLayout";
+}
+<div class="main-title">
+    <h2>Tournament Details</h2>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <img class="img-fluid rounded" src="@Model.ImageUrl">
+        </div>
+        <div class="col-md-4">
+            <h2>Name: @Model.Name</h2>
+            <p class="lead">Description: @Model.Description</p>
+            <p class="lead">Start Date: @Model.StartDate</p>
+            <p class="lead">End Date: @Model.EndDate</p>
+            <p class="lead">Type: @Model.TournamentType</p>
+            <p class="lead">Sport: @Model.TeamSportDiscipline</p>
+            <p class="lead">Address:</p>
+            <p class="lead">@Model.Address.City</p>
+            <p class="lead">@Model.Address.State</p>
+            <p class="lead">@Model.Address.Street</p>
+            @if(Model.WinnerTeamId != null)
+            {
+                <p class="lead">Winner Team: @Model.WinnerTeam.Name</p>
+            }
+            
+
+         
+
+        </div>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Tournament"
+               asp-action="Index">Back</a>
+            <a class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Tournament"
+               asp-action="Edit" asp-route-Id="@Model.Id">Edit</a>
+            <a class="btn btn-dark fixed-width-btn" asp-area="" asp-controller="Tournament"
+               asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
+            
+        </div>
+
+    </div>
+</div>

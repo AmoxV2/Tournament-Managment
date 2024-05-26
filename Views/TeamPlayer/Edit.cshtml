@@ -1,0 +1,45 @@
+﻿@using WWW_APP_PROJECT.ViewModels
+@model EditPlayerViewModel;
+
+
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "SidebarLayout";
+}
+
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" id="TeamId" name="TeamId" asp-for="TeamId" />
+    <input type="hidden" id="Id" name="Id" asp-for="Id" />
+   
+    <div class="form-group form-margin" style="max-width: 500px;">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control form-bg grey-text" placeholder="FirstName">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group form-margin">
+        <label asp-for="LastName">Last Name</label>
+        <br />
+        <input asp-for="LastName" class="form-control form-bg grey-text" placeholder="LastName">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group form-margin">
+        <label asp-for="Age">Age</label>
+        <input asp-for="Age" type="number" min="1" max="150" class="form-control form-bg grey-text" placeholder="Age">
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="form-group form-margin">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="file" class="form-control form-bg grey-text" placeholder="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <div class="form-group center-content">
+        <button type="submit" class="btn btn-dark fixed-width-btn">Edit</button>
+    </div>
+</form>
+
+
+
+

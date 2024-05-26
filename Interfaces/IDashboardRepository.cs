@@ -8,5 +8,6 @@ namespace WWW_APP_PROJECT.Interfaces
         Task<AppUser> GetUserByIdNoTracking(string id);
         bool Update(AppUser user);
         bool Save();
+        Task<List<TeamTournament>> GetPublicTournaments();
     }
 }
