@@ -6,44 +6,44 @@
 @{
     Layout = "SidebarLayout";
 }
-            <div class="main-title">
-                <h2>Team Details</h2>
+<div class="main-title">
+    <h2>Team Details</h2>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <img class="img-fluid rounded" src="@Model.ImageUrl" alt="@Model.Name">
+        </div>
+        <div class="col-md-4">
+            <h2>Team Name: @Model.Name</h2>
+            <p class="lead">Dyscypline: @Model.TeamSportDiscipline</p>
+            <div class="margin">
+                <a class="btn btn-dark  fixed-width-btn" asp-area="" asp-controller="TeamPlayer"
+                   asp-action="Create" asp-route-teamId="@Model.Id">Add Player</a>
             </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="@Model.Name">
-                    </div>
-                    <div class="col-md-4">
-                        <h2>Team Name: @Model.Name</h2>
-                        <p class="lead">Dyscypline: @Model.TeamSportDiscipline</p>
-                        <div class="margin">
-                            <a class="btn btn-dark  fixed-width-btn" asp-area="" asp-controller="TeamPlayer"
-                               asp-action="Create" asp-route-teamId="@Model.Id">Add Player</a>
-                        </div>
-                        <h4>List of players</h4>
-                        <div class="row">
-                            @foreach (var player in Model.TeamPlayers)
-                            {
+            <h4>List of players</h4>
+            <div class="row">
+                @foreach (var player in Model.TeamPlayers)
+                {
 
-                                    <div class="card-body box-shadow small-card" style="background-color: rgba(0, 0, 0, 0.1);">
-                                        <div class="d-flex justify-content-between" style="flex-direction: row;">
-                                            <p class="card-text no-wrap">@player.FirstName @player.LastName</p>
-                                                <a class="material-symbols-outlined small-icon-material-symbols-outlined " asp-area="" asp-controller="TeamPlayer"
-                                               asp-action="Detail">lightbulb</a>
-                                                <a class="material-symbols-outlined small-icon-material-symbols-outlined" asp-area="" asp-controller="TeamPlayer"
-                                               asp-action="Edit">edit</a>
+                    <div class="card-body box-shadow small-card" style="background-color: rgba(0, 0, 0, 0.1);">
+                        <div class="d-flex justify-content-between" style="flex-direction: row;">
+                            <p class="card-text no-wrap">@player.FirstName @player.LastName</p>
+                            <a class="material-symbols-outlined small-icon-material-symbols-outlined " asp-area="" asp-controller="TeamPlayer"
+                               asp-action="Detail" asp-route-Id="@player.Id">lightbulb</a>
+                            <a class="material-symbols-outlined small-icon-material-symbols-outlined" asp-area="" asp-controller="TeamPlayer"
+                               asp-action="Edit" asp-route-Id="@player.Id">edit</a>
                             <a class="material-symbols-outlined  small-icon-material-symbols-outlined center-content" asp-area="" asp-controller="TeamPlayer"
-                                               asp-action="Delete">delete</a>
-                                        </div>
-                                    </div>
-                              
-
-                            }
+                               asp-action="Delete" asp-route-Id="@player.Id">delete</a>
                         </div>
                     </div>
-                </div>
+
+
+                }
             </div>
+        </div>
+    </div>
+</div>
 
 
 

@@ -28,13 +28,9 @@
                                         <div class="btn-group">
                                             <a type="btn btn-success" asp-controller="Team" asp-action="Detail" asp-route-id="@item.Id"
                                                class="btn btn-sm btn-outline-secondary">View</a>
-                                            @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
-                                            {
                                                 <a asp-controller="Team" asp-action="Edit" asp-route-id="@item.Id"
                                                    class="btn btn-sm btn-outline-secondary">Edit</a>
-                                                <a asp-controller="Team" asp-action="Delete" asp-route-id="@item.Id"
-                                                   class="btn btn-sm btn-outline-secondary">Delete</a>
-                                            }
+                                                
                                         </div>
 
                                     </div>
