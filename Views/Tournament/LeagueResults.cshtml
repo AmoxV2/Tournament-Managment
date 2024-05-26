@@ -5,33 +5,53 @@
 @{
     Layout = "SidebarLayout";
 }
+
+
 <div class="main-title">
     <h2>Tournament Finished</h2>
 
 </div>
 
+@*#0f1011
+#6c7577*@
+<div style="text-align: center;">
+    <div style="display: inline-block; min-width: 500px; margin: auto;">
+        <div class="col text-center">
+            <h2 style="color: white;">Scoreboard</h2>
+        </div>
 
-<div style="display: flex; justify-content: space-between;  ">
-
-
-
-    
-    <div style="flex: 1; margin-left: 40px;">
-        <h2>Scoreboard</h2>
-        <ul class="list-group">
-
-            @foreach (var teamScore in Model)
-            {
-
-
-
-                <li class="list-group-item d-flex justify-content-between">
-                    @teamScore.team.Name @teamScore.teamScore.Score
-
-                </li>
+        <ul class="list-group" style="list-style-type: none; padding: 0;">
+            <li class="list-group-item" style="background-color:#0f1011; color: white; display: flex; justify-content: space-between; padding: 10px;">
+                <div style="flex: 1; text-align: center;"><strong>#</strong></div>
+                <div style="flex: 2; text-align: center;"><strong>Team Name</strong></div>
+                <div style="flex: 1; text-align: center;"><strong>Wins</strong></div>
+                <div style="flex: 1; text-align: center;"><strong>Draws</strong></div>
+                <div style="flex: 1; text-align: center;"><strong>Loses</strong></div>
+                <div style="flex: 1; text-align: center;"><strong>Score</strong></div>
+            </li>
+            @{
+                int index = 1;
+                bool isEven = false;
+                @foreach (var teamScore in Model)
+                {
+                    string backgroundColor = isEven ? "#1a1b1d" : "#2b2f33"; // Adjusting the colors to be slightly darker
+                    isEven = !isEven;
+                    <li class="list-group-item" style="background-color:@backgroundColor; color: white; display: flex; justify-content: space-between; padding: 10px;">
+                        <div style="flex: 1; text-align: center;">@index</div>
+                        <div style="flex: 2; text-align: center;">@teamScore.team.Name</div>
+                        <div style="flex: 1; text-align: center;">@teamScore.teamScore.Wins</div>
+                        <div style="flex: 1; text-align: center;">@teamScore.teamScore.Draws</div>
+                        <div style="flex: 1; text-align: center;">@teamScore.teamScore.Loses</div>
+                        <div style="flex: 1; text-align: center;">@teamScore.teamScore.Score</div>
+                        
+                    </li>
+                    index++;
+                }
             }
-
-
         </ul>
     </div>
 </div>
+
+
+
+

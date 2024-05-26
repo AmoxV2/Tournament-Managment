@@ -10,13 +10,13 @@
 
 </div>
 
-
+@*
 <div style="display: flex; justify-content: space-between;  ">
 
 
-    @for (int i = 1; i <= Model.Rounds.Count;i++){ 
+    @for (int i = 1; i <= Model.Rounds.Count;i++){
     <div style="flex: 1; margin-right: 10px;">
-        <h2>1 Round</h2>
+        <h2>Round @i</h2>
         <ul class="list-group">
 
             @foreach (var match in Model.Rounds[i-1])
@@ -33,11 +33,11 @@
                     {
                         <li class="list-group-item d-flex justify-content-between">
                             @match.HostTeam.Name vs @match.GuestTeam.Name @match.HostScore : @match.GuestScore
-                            
+
 
                         </li>
                     }
-                }
+            }
 
 
         </ul>
@@ -45,6 +45,324 @@
 
     </div>
     }
-    
-   
+
+
 </div>
+*@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script|Herr+Von+Muellerhoff' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="~/css/tournament-index.css" />
+
+    <style> 
+        .container
+        {
+            max-width:1400px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <section id="bracket">
+        <div class="container">
+            <div class="split split-one">
+                <div class="round round-one current">
+                    <div class="round-details">Round 1<br /></div>
+
+                    @for (int j = 0; j < Model.Rounds[0].Count / 2; j++)
+                    {
+                        var match = Model.Rounds[0][j];
+                        if (match.MatchResult == MatchResult.UnPlayed)
+                        {
+                            <ul class="matchup" style="margin:10px !important">
+                                <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                    @match.HostTeam.Name
+                                    <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                </li>
+                                <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="matchup" style="margin:10px !important">
+                                <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                            </ul>
+                        }
+                    }
+
+
+
+
+                </div>  <!-- END ROUND ONE -->
+
+                <div class="round round-two current" style="padding:25px 0 !important">
+
+                    <div class="round-details">Round 2<br /></div>
+
+                    @if (Model.Rounds[1].Count() == 0)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @for (int j = 0; j < Model.Rounds[1].Count / 2; j++)
+                        {
+                            var match = Model.Rounds[1][j];
+                            if (match.MatchResult == MatchResult.UnPlayed)
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                        @match.HostTeam.Name
+                                        <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                    </li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                                </ul>
+                            }
+                        }
+                    }
+
+
+                </div>  <!-- END ROUND TWO -->
+
+                <div class="round round-three current" style="padding:35px 0 !important">
+                    <div class="round-details">Round 3<br /></div>
+                    @if (Model.Rounds[2].Count() == 0)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @for (int j = 0; j < Model.Rounds[2].Count / 2; j++)
+                        {
+                            var match = Model.Rounds[2][j];
+                            if (match.MatchResult == MatchResult.UnPlayed)
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                        @match.HostTeam.Name
+                                        <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                    </li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                                </ul>
+                            }
+                        }
+                    }
+
+                </div>  <!-- END ROUND THREE -->
+            </div>
+
+            <div class="champion current">
+                <div class="final">
+                    <i class="fa fa-trophy"></i>
+                    <div class="round-details">ChampionShip<br /></div>
+                    @if (Model.Rounds[3].Count() == 0)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @for (int j = 0; j < Model.Rounds[3].Count; j++)
+                        {
+                            var match = Model.Rounds[3][j];
+                            if (match.MatchResult == MatchResult.UnPlayed)
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                        @match.HostTeam.Name
+                                        <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                    </li>
+                                    <li class="team team-bottom text-black" style="text-align:left">@match.GuestTeam.Name</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                                </ul>
+                            }
+                        }
+                    }
+
+                </div>
+                <div class="round-details">Winner<br /></div>
+
+
+                @if (Model.Rounds[3][0].HostScore == null)
+                {
+                    <ul class="matchup" style="margin:10px !important">
+                        <li class="team team-top text-black"><span class="score"></span></li>
+                    </ul>
+                }
+                else
+                {
+                    @if (Model.Rounds[3][0].HostScore > Model.Rounds[3][0].GuestScore)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">@Model.Rounds[3][0].HostTeam.Name<span class="score">@Model.Rounds[3][0].HostScore</span></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">@Model.Rounds[3][0].GuestTeam.Name<span class="score">@Model.Rounds[3][0].GuestScore</span></li>
+                        </ul>
+                    }
+                }
+
+
+
+
+
+
+            </div>
+
+
+            <div class="split split-two">
+
+
+                <div class="round round-three current" style="padding:35px 0 !important">
+                    <div class="round-details">Round 3<br /></div>
+                    @if (Model.Rounds[2].Count() == 0)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @for (int j = Model.Rounds[2].Count / 2; j < Model.Rounds[2].Count; j++)
+                        {
+                            var match = Model.Rounds[2][j];
+                            if (match.MatchResult == MatchResult.UnPlayed)
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                        @match.HostTeam.Name
+                                        <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                    </li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                                </ul>
+                            }
+                        }
+                    }
+
+                </div>  <!-- END ROUND THREE -->
+
+                <div class="round round-two current" style="padding:25px 0 !important">
+                    <div class="round-details">Round 2<br /></div>
+                    @if (Model.Rounds[1].Count() == 0)
+                    {
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                        <ul class="matchup" style="margin:10px !important">
+                            <li class="team team-top text-black">
+                            <li class="team team-bottom text-black"></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @for (int j = Model.Rounds[1].Count / 2; j < Model.Rounds[1].Count; j++)
+                        {
+                            var match = Model.Rounds[1][j];
+                            if (match.MatchResult == MatchResult.UnPlayed)
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                        @match.HostTeam.Name
+                                        <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                    </li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="matchup" style="margin:10px !important">
+                                    <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                    <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                                </ul>
+                            }
+                        }
+                    }
+
+                </div>  <!-- END ROUND TWO -->
+
+                <div class="round round-one current" style="margin-right:5px !important">
+                    <div class="round-details">Round 1<br /></div>
+
+                    @for (int j = Model.Rounds[0].Count / 2; j < Model.Rounds[0].Count; j++)
+                    {
+                        var match = Model.Rounds[0][j];
+                        if (match.MatchResult == MatchResult.UnPlayed)
+                        {
+                            <ul class="matchup" style="margin:10px !important">
+                                <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
+                                    @match.HostTeam.Name
+                                    <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
+                                </li>
+                                <li class="team team-bottom text-black">@match.GuestTeam.Name</li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="matchup" style="margin:10px !important">
+                                <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
+                                <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
+                            </ul>
+                        }
+                    }
+
+
+
+                </div>  <!-- END ROUND ONE -->
+            </div>
+        </div>
+    </section>
+</body>
