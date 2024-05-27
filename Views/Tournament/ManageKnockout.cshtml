@@ -75,7 +75,7 @@
     <section id="bracket">
         <div class="container">
             <div class="split split-one">
-                <div class="round round-one current">
+                <div class="round round-one current" >
                     <div class="round-details">Round 1<br /></div>
 
                     @for (int j = 0; j < Model.Rounds[0].Count / 2; j++)
@@ -83,7 +83,7 @@
                         var match = Model.Rounds[0][j];
                         if (match.MatchResult == MatchResult.UnPlayed)
                         {
-                            <ul class="matchup" style="margin:10px !important">
+                            <ul class="matchup" style="margin:2em 0!important">
                                 <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                     @match.HostTeam.Name
                                     <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -93,7 +93,7 @@
                         }
                         else
                         {
-                            <ul class="matchup" style="margin:10px !important">
+                            <ul class="matchup" style="margin:2em 0!important">
                                 <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                 <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                             </ul>
@@ -105,17 +105,17 @@
 
                 </div>  <!-- END ROUND ONE -->
 
-                <div class="round round-two current" style="padding:25px 0 !important">
+                <div class="round round-two current">
 
                     <div class="round-details">Round 2<br /></div>
 
                     @if (Model.Rounds[1].Count() == 0)
                     {
-                        <ul class="matchup" style="margin:10px !important">
+                        <ul class="matchup" style="margin:2.6em 0!important">
                             <li class="team team-top text-black">
                             <li class="team team-bottom text-black"></li>
                         </ul>
-                        <ul class="matchup" style="margin:10px !important">
+                        <ul class="matchup" style="margin:2.6em 0!important">
                             <li class="team team-top text-black">
                             <li class="team team-bottom text-black"></li>
                         </ul>
@@ -127,7 +127,7 @@
                             var match = Model.Rounds[1][j];
                             if (match.MatchResult == MatchResult.UnPlayed)
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                         @match.HostTeam.Name
                                         <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -137,7 +137,7 @@
                             }
                             else
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                     <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                                 </ul>
@@ -152,7 +152,7 @@
                     <div class="round-details">Round 3<br /></div>
                     @if (Model.Rounds[2].Count() == 0)
                     {
-                        <ul class="matchup" style="margin:10px !important">
+                        <ul class="matchup" style="margin:2.6em 0!important">
                             <li class="team team-top text-black">
                             <li class="team team-bottom text-black"></li>
                         </ul>
@@ -164,7 +164,7 @@
                             var match = Model.Rounds[2][j];
                             if (match.MatchResult == MatchResult.UnPlayed)
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                         @match.HostTeam.Name
                                         <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -174,7 +174,7 @@
                             }
                             else
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                     <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                                 </ul>
@@ -186,7 +186,7 @@
             </div>
 
             <div class="champion current">
-                <div class="final">
+                <div class="final" style="margin:4.5em 0 !important">
                     <i class="fa fa-trophy"></i>
                     <div class="round-details">ChampionShip<br /></div>
                     @if (Model.Rounds[3].Count() == 0)
@@ -225,7 +225,7 @@
                 <div class="round-details">Winner<br /></div>
 
 
-                @if (Model.Rounds[3][0].HostScore == null)
+                @if (Model.Tournament.WinnerTeam == null)
                 {
                     <ul class="matchup" style="margin:10px !important">
                         <li class="team team-top text-black"><span class="score"></span></li>
@@ -274,7 +274,7 @@
                             var match = Model.Rounds[2][j];
                             if (match.MatchResult == MatchResult.UnPlayed)
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                         @match.HostTeam.Name
                                         <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -284,7 +284,7 @@
                             }
                             else
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                     <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                                 </ul>
@@ -294,15 +294,15 @@
 
                 </div>  <!-- END ROUND THREE -->
 
-                <div class="round round-two current" style="padding:25px 0 !important">
+                <div class="round round-two current" >
                     <div class="round-details">Round 2<br /></div>
                     @if (Model.Rounds[1].Count() == 0)
                     {
-                        <ul class="matchup" style="margin:10px !important">
+                        <ul class="matchup" style="margin:2.6em 0!important">
                             <li class="team team-top text-black">
                             <li class="team team-bottom text-black"></li>
                         </ul>
-                        <ul class="matchup" style="margin:10px !important">
+                        <ul class="matchup" style="margin:2.6em 0!important">
                             <li class="team team-top text-black">
                             <li class="team team-bottom text-black"></li>
                         </ul>
@@ -314,7 +314,7 @@
                             var match = Model.Rounds[1][j];
                             if (match.MatchResult == MatchResult.UnPlayed)
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                         @match.HostTeam.Name
                                         <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -324,7 +324,7 @@
                             }
                             else
                             {
-                                <ul class="matchup" style="margin:10px !important">
+                                <ul class="matchup" style="margin:2.6em 0!important">
                                     <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                     <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                                 </ul>
@@ -342,7 +342,7 @@
                         var match = Model.Rounds[0][j];
                         if (match.MatchResult == MatchResult.UnPlayed)
                         {
-                            <ul class="matchup" style="margin:10px !important">
+                            <ul class="matchup" style="margin:2em 0!important">
                                 <li class="team team-top text-black" style="display: flex; justify-content: space-between; align-items: center;">
                                     @match.HostTeam.Name
                                     <a class="material-symbols-outlined btn btn-dark btn-sm" style="font-size: 0.9em !important; display: inline-block;" asp-controller="Match" asp-action="EditKnockout" asp-route-Id="@match.Id">add</a>
@@ -352,7 +352,7 @@
                         }
                         else
                         {
-                            <ul class="matchup" style="margin:10px !important">
+                            <ul class="matchup" style="margin:2em 0!important">
                                 <li class="team team-top text-black">@match.HostTeam.Name<span class="score">@match.HostScore</span></li>
                                 <li class="team team-bottom text-black">@match.GuestTeam.Name<span class="score">@match.GuestScore</span></li>
                             </ul>
