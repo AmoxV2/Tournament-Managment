@@ -5,15 +5,20 @@
 @{
     Layout = "SidebarLayout";
 }
-
+<div class="main-title">
+    <h2>My Shares</h2>
+</div>
 <div class="container">
     <div class="row">
         @foreach (var item in Model)
         {
 
             <div class="col-md-4">
-                <div class="card mb-4 box-shadow" style="background-color: rgba(10, 200, 0, 0.1);">
+                <div class="card mb-4 box-shadow" style="background-color: rgba(0, 0, 0, 0.1);">
                     <div class="card-body">
+                        <div class="center-content">
+                            <h4>Share</h4>
+                        </div>
                        
                         <p class="card-text">User: @item.AppUser.UserName</p>
                         <p class="card-text">Share trybe: @item.ShareTrybe</p>
