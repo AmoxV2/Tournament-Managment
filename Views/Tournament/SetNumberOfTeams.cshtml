@@ -19,8 +19,9 @@
                 <input type="hidden" id="AppUseNumberOfTeams" name="AppUserId" asp-for="AppUserId" />
                 <input type="hidden" id="Name" name="Name" asp-for="Name" />
                 <input type="hidden" id="Description" name="Description" asp-for="Description" />
-                <input type="hidden" id="StartDate" name="StartDate" asp-for="StartDate" />
-                <input type="hidden" id="EndDate" name="EndDate" asp-for="EndDate" />
+    <input type="hidden" id="StartDate" name="StartDate" asp-for="StartDate" value="@Model.StartDate" />
+    <input type="hidden" id="EndDate" name="EndDate" asp-for="EndDate" value="@Model.EndDate" />
+
                 <input type="hidden" id="TeamSportDiscipline" name="TeamSportDiscipline" asp-for="TeamSportDiscipline" />
                 <input type="hidden" id="TournamentType" name="TournamentType" asp-for="TournamentType" />
                 <input type="hidden" id="Street" name="Street" asp-for="Street" />

@@ -13,8 +13,8 @@
         <div class="col-md-4">
             <h2>Name: @Model.Name</h2>
             <p class="lead">Description: @Model.Description</p>
-            <p class="lead">Start Date: @Model.StartDate</p>
-            <p class="lead">End Date: @Model.EndDate</p>
+            <p class="lead">Start Date: @Model.StartDate?.ToString("dd/MM/yyyy")</p>
+            <p class="lead">End Date: @Model.EndDate?.ToString("dd/MM/yyyy")</p>
             <p class="lead">Type: @Model.TournamentType</p>
             <p class="lead">Sport: @Model.TeamSportDiscipline</p>
             <p class="lead">Address:</p>
